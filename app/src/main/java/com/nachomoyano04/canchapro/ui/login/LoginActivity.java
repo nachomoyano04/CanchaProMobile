@@ -22,15 +22,25 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
-//        vm = new ViewModelProvider.AndroidViewModelFactory(getApplication()).create(LoginActivityViewModel.class);
+        vm = new ViewModelProvider.AndroidViewModelFactory(getApplication()).create(LoginActivityViewModel.class);
         setContentView(binding.getRoot());
         binding.btnLoginIngresar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                vm.login(binding.etCorreoLogin.getText().toString(), binding.etPasswordLogin.getText().toString());
                 //metodo para verificar correo y password
-                Intent i = new Intent(getApplication(), MainActivity.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(i);
+            }
+        });
+        binding.btnForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //metodo q envía mail de recuperación
+            }
+        });
+        binding.btnRegistrarUsuario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                vm.registrarUsuario();
             }
         });
     }
