@@ -27,26 +27,30 @@ public class RegistrarActivityViewModel extends AndroidViewModel {
 
     public void guardarRegistroUsuario(Usuario u){
         if(u.camposLlenos()){
-            ApiCliente.CanchaProService api = ApiCliente.getApiCanchaPro(context);
-            api.registrar(u.getDni(), u.getNombre(), u.getApellido(), u.getCorreo(), u.getPassword()).enqueue(new Callback<String>() {
-                @Override
-                public void onResponse(Call<String> call, Response<String> response) {
-                    if(response.isSuccessful()){
-                        Toast.makeText(context, response.body(), Toast.LENGTH_SHORT).show();
-                        Intent i = new Intent(context, LoginActivity.class);
-                        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        context.startActivity(i);
-                    }else{
-                        Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show();
+            if(u.passwordsCoinciden()){
+                ApiCliente.CanchaProService api = ApiCliente.getApiCanchaPro(context);
+                api.registrar(u.getDni(), u.getNombre(), u.getApellido(), u.getCorreo(), u.getPassword()).enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+                        if(response.isSuccessful()){
+                            Toast.makeText(context, response.body(), Toast.LENGTH_SHORT).show();
+                            Intent i = new Intent(context, LoginActivity.class);
+                            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            context.startActivity(i);
+                        }else{
+                            Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show();
+                        }
                     }
-                }
 
-                @Override
-                public void onFailure(Call<String> call, Throwable throwable) {
-                    Log.d("ErrorRegistrarUsuario", throwable.getMessage());
-                    Toast.makeText(context, "", Toast.LENGTH_SHORT).show();
-                }
-            });
+                    @Override
+                    public void onFailure(Call<String> call, Throwable throwable) {
+                        Log.d("ErrorRegistrarUsuario", throwable.getMessage());
+                        Toast.makeText(context, "", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }else{
+                Toast.makeText(context, "Las passwords deben coincidir", Toast.LENGTH_SHORT).show();
+            }
         }else{
             Toast.makeText(context, "Debe llenar todos los campos", Toast.LENGTH_SHORT).show();
         }

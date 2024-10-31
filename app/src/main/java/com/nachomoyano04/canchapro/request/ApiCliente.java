@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -41,8 +42,12 @@ public class ApiCliente {
 
     public static CanchaProService getApiCanchaPro(Context context){
         Gson gson = new GsonBuilder().setLenient().create();
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(new AuthorizeInterceptor(context))
+                .build();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(URL_BASE)
+                .client(client)
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();

@@ -7,18 +7,19 @@ public class Usuario {
     private String apellido;
     private String correo;
     private String password;
+    private String repetirPassword;
     private String avatar;
     private int estado;
 
-    public Usuario(int id, String dni, String nombre, String apellido, String correo, String password, String avatar, int estado) {
-        this.id = id;
+    public Usuario(){}
+
+    public Usuario(String dni, String nombre, String apellido, String correo, String password, String repetirPassword) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellido = apellido;
         this.correo = correo;
         this.password = password;
-        this.avatar = avatar;
-        this.estado = estado;
+        this.repetirPassword = repetirPassword;
     }
 
     public int getId() {
@@ -87,5 +88,9 @@ public class Usuario {
 
     public boolean camposLlenos() {
         return !dni.isEmpty() && !nombre.isEmpty() && !apellido.isEmpty() && !correo.isEmpty() && !password.isEmpty();
+    }
+
+    public boolean passwordsCoinciden() {
+        return password.equals(repetirPassword);
     }
 }
