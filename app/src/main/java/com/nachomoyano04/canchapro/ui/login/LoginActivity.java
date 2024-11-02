@@ -28,13 +28,12 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 vm.login(binding.etCorreoLogin.getText().toString(), binding.etPasswordLogin.getText().toString());
-                //metodo para verificar correo y password
             }
         });
         binding.btnForgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //metodo q envía mail de recuperación
+                vm.recuperarPassword();
             }
         });
         binding.btnRegistrarUsuario.setOnClickListener(new View.OnClickListener() {

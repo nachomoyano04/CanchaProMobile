@@ -13,6 +13,8 @@ import androidx.lifecycle.AndroidViewModel;
 import com.nachomoyano04.canchapro.MainActivity;
 import com.nachomoyano04.canchapro.request.ApiCliente;
 
+import java.io.IOException;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -39,7 +41,11 @@ public class LoginActivityViewModel extends AndroidViewModel {
                         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         context.startActivity(i);
                     }else{
-                        Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show();
+                        try {
+                            Toast.makeText(context, response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                 }
 

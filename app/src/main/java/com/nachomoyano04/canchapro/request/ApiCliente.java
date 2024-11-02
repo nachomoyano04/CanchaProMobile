@@ -14,7 +14,9 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 
 public class ApiCliente {
     public static final String URL_BASE = "http://192.168.1.9:5021/api/";
@@ -64,5 +66,15 @@ public class ApiCliente {
         @FormUrlEncoded
         @POST("usuario")
         Call<String> registrar(@Field("dni") String dni, @Field("nombre") String nombre, @Field("apellido") String apellido, @Field("correo") String correo, @Field("password") String password);
+
+        //Enviar mail recuperacion password
+        @FormUrlEncoded
+        @POST("usuario/recuperarpass")
+        Call<String> recuperarPassword(@Field("correo") String correo);
+
+        //Nueva password en recuperar password
+        @FormUrlEncoded
+        @PUT("usuario/nuevapassword")
+        Call<String> nuevaPassword(@Header("Authorization") String token, @Field("nuevaPassword") String nuevaPassword);
     }
 }
