@@ -10,16 +10,41 @@
         android:name="com.nachomoyano04.canchapro.ui.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/nav_canchas"
+        android:name="com.nachomoyano04.canchapro.ui.canchas.ListadoFragment"
+        android:label="Listado de canchas"
+        tools:layout="@layout/fragment_listado" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.nachomoyano04.canchapro.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
-
+        android:id="@+id/editarAvatarFragment"
+        android:name="com.nachomoyano04.canchapro.ui.perfil.EditarAvatarFragment"
+        android:label="Editar avatar"
+        tools:layout="@layout/fragment_editar_avatar" >
+        <action
+            android:id="@+id/action_editarAvatarFragment_to_nav_perfilFragment"
+            app:destination="@id/nav_perfilFragment" />
+    </fragment>
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.nachomoyano04.canchapro.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/nav_perfilFragment"
+        android:name="com.nachomoyano04.canchapro.ui.perfil.PerfilFragment"
+        android:label="Datos del perfil"
+        tools:layout="@layout/fragment_perfil">
+        <action
+            android:id="@+id/action_nav_perfilFragment_to_editarAvatarFragment"
+            app:destination="@id/editarAvatarFragment" />
+        <action
+            android:id="@+id/action_nav_perfilFragment_to_cambiarPasswordFragment"
+            app:destination="@id/cambiarPasswordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cambiarPasswordFragment"
+        android:name="com.nachomoyano04.canchapro.ui.perfil.CambiarPasswordFragment"
+        android:label="Cambiar password"
+        tools:layout="@layout/fragment_cambiar_password">
+        <action
+            android:id="@+id/action_cambiarPasswordFragment_to_nav_perfilFragment"
+            app:destination="@id/nav_perfilFragment" />
+    </fragment>
+
 </navigation>

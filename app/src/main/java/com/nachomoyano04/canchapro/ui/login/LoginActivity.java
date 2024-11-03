@@ -28,6 +28,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 vm.login(binding.etCorreoLogin.getText().toString(), binding.etPasswordLogin.getText().toString());
+                binding.etCorreoLogin.setText("");
+                binding.etPasswordLogin.setText("");
             }
         });
         binding.btnForgotPassword.setOnClickListener(new View.OnClickListener() {

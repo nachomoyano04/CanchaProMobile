@@ -5,6 +5,10 @@ import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.nachomoyano04.canchapro.models.Cancha;
+import com.nachomoyano04.canchapro.models.Usuario;
+
+import java.util.ArrayList;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
@@ -15,6 +19,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 
@@ -76,5 +81,23 @@ public class ApiCliente {
         @FormUrlEncoded
         @PUT("usuario/nuevapassword")
         Call<String> nuevaPassword(@Header("Authorization") String token, @Field("nuevaPassword") String nuevaPassword);
+
+        //Obtener datos del perfil del usuario logueado
+        @GET("usuario")
+        Call<Usuario> getUsuario(@Header("Authorization") String token);
+
+        //Editar perfil del usuario logueado
+        @FormUrlEncoded
+        @PUT("usuario")
+        Call<String> editar(@Header("Authorization") String token, @Field("dni") String dni, @Field("nombre") String nombre, @Field("apellido") String apellido, @Field("correo") String correo);
+
+        //Cambiar password usuario logueado
+        @FormUrlEncoded
+        @PATCH("usuario/password")
+        Call<String> cambiarPassword(@Header("Authorization") String token, @Field("passwordActual") String passwordActual, @Field("passwordNueva") String passwordNueva);
+
+        //Obtener todas las canchas disponibles
+        @GET("cancha")
+        Call<ArrayList<Cancha>> getCanchas(@Header("Authorization") String token);
     }
 }

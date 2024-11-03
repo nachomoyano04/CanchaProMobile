@@ -9,7 +9,7 @@ public class Usuario {
     private String password;
     private String repetirPassword;
     private String avatar;
-    private int estado;
+    private boolean estado;
 
     public Usuario(){}
 
@@ -78,11 +78,11 @@ public class Usuario {
         this.avatar = avatar;
     }
 
-    public int getEstado() {
+    public boolean isEstado() {
         return estado;
     }
 
-    public void setEstado(int estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 
