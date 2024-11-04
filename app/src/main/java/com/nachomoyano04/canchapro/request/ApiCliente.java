@@ -6,8 +6,10 @@ import android.content.SharedPreferences;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.nachomoyano04.canchapro.models.Cancha;
+import com.nachomoyano04.canchapro.models.Turno;
 import com.nachomoyano04.canchapro.models.Usuario;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import okhttp3.OkHttpClient;
@@ -22,9 +24,10 @@ import retrofit2.http.Header;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Path;
 
 public class ApiCliente {
-    public static final String URL_BASE = "http://192.168.1.9:5021/api/";
+    public static final String URL_BASE = "http://192.168.1.7:5021/api/";
     public static SharedPreferences sp;
 
     public static SharedPreferences conectar(Context context){
@@ -99,5 +102,13 @@ public class ApiCliente {
         //Obtener todas las canchas disponibles
         @GET("cancha")
         Call<ArrayList<Cancha>> getCanchas(@Header("Authorization") String token);
+
+        //obtenemos todos los turnos disponibles para x cancha x dia
+        @GET("turno/dia/{idCancha}/{fecha}")
+        Call<ArrayList<Turno>> disponiblesPorDia(@Header("Authorization") String token, @Path("idCancha") int idCancha, @Path("fecha") LocalDateTime fecha);
+
+        //Los proximos turnos del usuario logueado
+        @GET("turno/pendientes")
+        Call<ArrayList<Turno>> misProximosTurnos(@Header("Authorization") String token);
     }
 }

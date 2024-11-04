@@ -1,6 +1,6 @@
 package com.nachomoyano04.canchapro.ui.canchas;
 
-import android.util.Log;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -39,7 +40,7 @@ public class CanchaAdapter extends RecyclerView.Adapter<CanchaAdapter.CanchaView
             Cancha c = listaCanchas.get(position);
             holder.titulo.setText(c.getTipo().getNombre());
             Glide.with(holder.itemView)
-                    .load("http://192.168.1.9:5021/img/usuario/"+c.getImagen())
+                    .load("http://192.168.1.7:5021/img/usuario/"+c.getImagen())
                     .placeholder(R.drawable.ic_launcher_background)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(holder.imagen);
@@ -47,6 +48,14 @@ public class CanchaAdapter extends RecyclerView.Adapter<CanchaAdapter.CanchaView
             holder.capacidad.setText(c.getTipo().getCapacidadTotal()+"");
             holder.precio.setText("$"+c.getPrecioPorHora());
             holder.descripcion.setText(c.getDescripcion());
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Bundle b = new Bundle();
+                    b.putSerializable("cancha", c);
+                    Navigation.findNavController(view).navigate(R.id.listadoTurnosFragment, b);
+                }
+            });
         }
     }
 

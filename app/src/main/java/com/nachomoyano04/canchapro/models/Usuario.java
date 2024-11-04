@@ -93,4 +93,6 @@ public class Usuario {
     public boolean passwordsCoinciden() {
         return password.equals(repetirPassword);
     }
+
+    public String nombreYApellido(){return nombre+" "+apellido;}
 }

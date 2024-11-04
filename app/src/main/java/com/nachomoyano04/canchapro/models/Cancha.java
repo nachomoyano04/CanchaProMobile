@@ -1,6 +1,8 @@
 package com.nachomoyano04.canchapro.models;
 
-public class Cancha {
+import java.io.Serializable;
+
+public class Cancha implements Serializable {
     private int id;
     private int tipoId;
     private Tipo tipo;
@@ -75,5 +77,18 @@ public class Cancha {
 
     public void setEstado(int estado) {
         this.estado = estado;
+    }
+
+    @Override
+    public String toString() {
+        return "Cancha{" +
+                "id=" + id +
+                ", tipoId=" + tipoId +
+                ", tipo=" + tipo +
+                ", imagen='" + imagen + '\'' +
+                ", precioPorHora=" + precioPorHora +
+                ", descripcion='" + descripcion + '\'' +
+                ", estado=" + estado +
+                '}';
     }
 }
