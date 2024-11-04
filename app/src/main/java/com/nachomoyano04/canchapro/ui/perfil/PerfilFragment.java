@@ -42,7 +42,7 @@ public class PerfilFragment extends Fragment {
                 binding.etApellidoPerfil.setText(u.getApellido());
                 binding.etCorreoPerfil.setText(u.getCorreo());
                 Glide.with(getContext())
-                        .load("http://192.168.1.9:5021/img/usuario/"+u.getAvatar())
+                        .load("http://192.168.1.7:5021/img/usuario/"+u.getAvatar())
                         .placeholder(R.drawable.ic_launcher_background)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(binding.ivAvatarPerfil);

@@ -3,6 +3,7 @@ package com.nachomoyano04.canchapro.ui.perfil;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -55,7 +56,9 @@ public class PerfilViewModel extends AndroidViewModel {
     }
 
     public void editarAvatar(View view){
-        Navigation.findNavController(view).navigate(R.id.editarAvatarFragment);
+        Bundle b = new Bundle();
+        b.putSerializable("usuario", mUsuario.getValue());
+        Navigation.findNavController(view).navigate(R.id.editarAvatarFragment, b);
     }
 
     public void cambiarPassword(View view) {

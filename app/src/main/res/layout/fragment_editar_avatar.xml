@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/ivAvatarEditarAvatarFragment"
         android:layout_width="342dp"
         android:layout_height="265dp"
         android:layout_marginTop="52dp"
@@ -34,33 +34,39 @@
         android:id="@+id/btnCancelarEditarAvatarPerfil"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="61dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
         android:backgroundTint="@color/design_default_color_error"
         android:text="Cancelar"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnGuardarEditarAvatarPerfil"
+        app:layout_constraintTop_toBottomOf="@+id/ivAvatarEditarAvatarFragment" />
 
     <Button
         android:id="@+id/btnGuardarEditarAvatarPerfil"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
         android:backgroundTint="@color/success"
         android:text="Guardar"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivAvatarEditarAvatarFragment" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
+        android:id="@+id/btnPickerEditarAvatarFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
         android:src="@android:drawable/ic_menu_camera"
         app:tint="@color/white"
         app:backgroundTint="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintEnd_toEndOf="@+id/imageView" />
+        app:layout_constraintBottom_toBottomOf="@+id/ivAvatarEditarAvatarFragment"
+        app:layout_constraintEnd_toEndOf="@+id/ivAvatarEditarAvatarFragment" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
