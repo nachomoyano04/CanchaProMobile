@@ -16,7 +16,9 @@ import com.nachomoyano04.canchapro.models.Turno;
 import com.nachomoyano04.canchapro.request.ApiCliente;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -42,12 +44,16 @@ public class TurnosPorCanchaViewModel extends AndroidViewModel {
 
     public void llenarLista(Cancha c){
         ApiCliente.CanchaProService api = ApiCliente.getApiCanchaPro(context);
-        api.disponiblesPorDia(ApiCliente.getToken(context), c.getId(), LocalDateTime.now()).enqueue(new Callback<ArrayList<Turno>>() {
+        api.disponiblesPorDia(ApiCliente.getToken(context), c.getId(), LocalDateTime.of(LocalDate.now(), LocalTime.MIN)).enqueue(new Callback<ArrayList<Turno>>() {
             @Override
             public void onResponse(Call<ArrayList<Turno>> call, Response<ArrayList<Turno>> response) {
                 if(response.isSuccessful()){
-                    ArrayList<Turno> t = response.body();
-                    mListaTurnos.postValue(t);
+                    if(response.code() == 204){
+                        Toast.makeText(context, "No hay turnos hoy", Toast.LENGTH_SHORT).show();
+                    }else{
+                        ArrayList<Turno> t = response.body();
+                        mListaTurnos.postValue(t);
+                    }
                 }else{
                     if(response.code() != 401){
                         try {

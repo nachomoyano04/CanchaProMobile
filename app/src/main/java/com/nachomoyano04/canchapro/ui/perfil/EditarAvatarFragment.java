@@ -1,5 +1,6 @@
 package com.nachomoyano04.canchapro.ui.perfil;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
@@ -14,11 +15,14 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -32,6 +36,7 @@ public class EditarAvatarFragment extends Fragment {
     private FragmentEditarAvatarBinding binding;
     private Intent intent;
     private ActivityResultLauncher launcher;
+    private boolean isEnabled = true;
 
     public static EditarAvatarFragment newInstance() {
         return new EditarAvatarFragment();
@@ -64,7 +69,7 @@ public class EditarAvatarFragment extends Fragment {
         binding.btnCancelarEditarAvatarPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                vm.cancelar(view);
+                Navigation.findNavController(view).navigate(R.id.nav_perfilFragment);
             }
         });
         binding.btnGuardarEditarAvatarPerfil.setOnClickListener(new View.OnClickListener() {
@@ -85,6 +90,12 @@ public class EditarAvatarFragment extends Fragment {
                 vm.recibirFoto(o);
             }
         });
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 
     @Override

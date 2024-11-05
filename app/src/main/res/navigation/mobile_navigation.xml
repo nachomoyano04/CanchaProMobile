@@ -6,15 +6,14 @@
     app:startDestination="@+id/nav_inicio">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.nachomoyano04.canchapro.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
-    <fragment
         android:id="@+id/nav_canchas"
         android:name="com.nachomoyano04.canchapro.ui.canchas.ListadoFragment"
         android:label="Listado de canchas"
-        tools:layout="@layout/fragment_listado" />
+        tools:layout="@layout/fragment_listado" >
+        <action
+            android:id="@+id/action_nav_canchas_to_listadoTurnosFragment"
+            app:destination="@id/listadoTurnosFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/editarAvatarFragment"
@@ -50,7 +49,11 @@
         android:id="@+id/listadoTurnosFragment"
         android:name="com.nachomoyano04.canchapro.ui.turnos.TurnosPorCanchaFragment"
         android:label="Turnos disponibles"
-        tools:layout="@layout/fragment_turnos_por_cancha" />
+        tools:layout="@layout/fragment_turnos_por_cancha" >
+        <action
+            android:id="@+id/action_listadoTurnosFragment_to_nav_canchas"
+            app:destination="@id/nav_canchas" />
+    </fragment>
     <fragment
         android:id="@+id/nav_inicio"
         android:name="com.nachomoyano04.canchapro.ui.inicio.InicioFragment"

@@ -69,10 +69,6 @@ public class EditarAvatarViewModel extends AndroidViewModel {
         }
     }
 
-    public void cancelar(View view){
-        Navigation.findNavController(view).navigate(R.id.nav_perfilFragment);
-    }
-
     public void guardar(){
         String img = mAvatar.getValue();
         if(img != null && !img.isEmpty()){
@@ -90,7 +86,7 @@ public class EditarAvatarViewModel extends AndroidViewModel {
                 inputStream.close();
 
                 RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
-                MultipartBody.Part imagen = MultipartBody.Part.createFormData("imagen", file.getName(), requestFile);
+                MultipartBody.Part imagen = MultipartBody.Part.createFormData("avatar", file.getName(), requestFile);
                 ApiCliente.CanchaProService api = ApiCliente.getApiCanchaPro(context);
                 api.editarAvatar(ApiCliente.getToken(context), imagen).enqueue(new Callback<String>() {
                     @Override
