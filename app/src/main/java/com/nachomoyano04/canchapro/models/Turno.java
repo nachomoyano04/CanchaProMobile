@@ -4,9 +4,10 @@ import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class Turno {
+public class Turno implements Serializable {
     private int id;
     private int canchaId;
     private Cancha cancha;
@@ -18,11 +19,14 @@ public class Turno {
     private LocalDateTime fechaInicio;
     @JsonAdapter(LocalDateTimeAdapter.class)
     private LocalDateTime fechaFin;
+    private String comentario;
+    private int calificacion;
+    private LocalDateTime fechaComentario;
     private int estado;
 
     public Turno() {}
 
-    public Turno(int id, int canchaId, Cancha cancha, int usuarioId, Usuario usuario, int pagoId, Pago pago, LocalDateTime fechaInicio, LocalDateTime fechaFin, int estado) {
+    public Turno(int id, int canchaId, Cancha cancha, int usuarioId, Usuario usuario, int pagoId, Pago pago, LocalDateTime fechaInicio, LocalDateTime fechaFin, String comentario, int calificacion, LocalDateTime fechaComentario, int estado) {
         this.id = id;
         this.canchaId = canchaId;
         this.cancha = cancha;
@@ -32,6 +36,9 @@ public class Turno {
         this.pago = pago;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
+        this.comentario = comentario;
+        this.calificacion = calificacion;
+        this.fechaComentario = fechaComentario;
         this.estado = estado;
     }
 
@@ -105,6 +112,30 @@ public class Turno {
 
     public void setFechaFin(LocalDateTime fechaFin) {
         this.fechaFin = fechaFin;
+    }
+
+    public String getComentario() {
+        return comentario;
+    }
+
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
+    }
+
+    public int getCalificacion() {
+        return calificacion;
+    }
+
+    public void setCalificacion(int calificacion) {
+        this.calificacion = calificacion;
+    }
+
+    public LocalDateTime getFechaComentario() {
+        return fechaComentario;
+    }
+
+    public void setFechaComentario(LocalDateTime fechaComentario) {
+        this.fechaComentario = fechaComentario;
     }
 
     public int getEstado() {

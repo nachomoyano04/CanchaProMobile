@@ -9,7 +9,7 @@
     <item
         android:id="@+id/nav_canchas"
         android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="Turnos" />
+        android:title="@string/turnos" />
 
     <item
         android:id="@+id/nav_perfilFragment"

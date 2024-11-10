@@ -19,6 +19,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.nachomoyano04.canchapro.R;
 import com.nachomoyano04.canchapro.databinding.FragmentPerfilBinding;
 import com.nachomoyano04.canchapro.models.Usuario;
+import com.nachomoyano04.canchapro.request.ApiCliente;
 
 public class PerfilFragment extends Fragment {
 
@@ -42,7 +43,7 @@ public class PerfilFragment extends Fragment {
                 binding.etApellidoPerfil.setText(u.getApellido());
                 binding.etCorreoPerfil.setText(u.getCorreo());
                 Glide.with(getContext())
-                        .load("http://192.168.1.7:5021/img/usuario/"+u.getAvatar())
+                        .load(ApiCliente.URLIMAGENUSUARIO+u.getAvatar())
                         .placeholder(R.drawable.ic_launcher_background)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(binding.ivAvatarPerfil);

@@ -55,7 +55,7 @@ public class EditarAvatarViewModel extends AndroidViewModel {
 
     public void setearImagen(String imagen){
         if(imagen != null && !imagen.isEmpty()){
-            mAvatar.postValue("http://192.168.1.7:5021/img/usuario/"+imagen);
+            mAvatar.postValue(ApiCliente.URLIMAGENUSUARIO+imagen);
         }
     }
 

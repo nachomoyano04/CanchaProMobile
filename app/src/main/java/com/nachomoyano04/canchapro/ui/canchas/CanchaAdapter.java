@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.nachomoyano04.canchapro.R;
 import com.nachomoyano04.canchapro.models.Cancha;
+import com.nachomoyano04.canchapro.request.ApiCliente;
 
 import java.util.ArrayList;
 
@@ -40,7 +41,7 @@ public class CanchaAdapter extends RecyclerView.Adapter<CanchaAdapter.CanchaView
             Cancha c = listaCanchas.get(position);
             holder.titulo.setText(c.getTipo().getNombre());
             Glide.with(holder.itemView)
-                    .load("http://192.168.1.7:5021/img/usuario/"+c.getImagen())
+                    .load(ApiCliente.URLIMAGENCANCHA+c.getImagen())
                     .placeholder(R.drawable.ic_launcher_background)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(holder.imagen);
@@ -53,7 +54,7 @@ public class CanchaAdapter extends RecyclerView.Adapter<CanchaAdapter.CanchaView
                 public void onClick(View view) {
                     Bundle b = new Bundle();
                     b.putSerializable("cancha", c);
-                    Navigation.findNavController(view).navigate(R.id.listadoTurnosFragment, b);
+                    Navigation.findNavController(view).navigate(R.id.nav_alta_update_turno, b);
                 }
             });
         }

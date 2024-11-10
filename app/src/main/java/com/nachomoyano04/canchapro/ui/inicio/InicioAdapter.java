@@ -1,5 +1,7 @@
 package com.nachomoyano04.canchapro.ui.inicio;
 
+import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,12 +10,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.nachomoyano04.canchapro.R;
 import com.nachomoyano04.canchapro.models.Turno;
+import com.nachomoyano04.canchapro.request.ApiCliente;
 
+import java.io.IOException;
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class InicioAdapter extends RecyclerView.Adapter<InicioAdapter.ViewHolderInicio> {
 
@@ -43,7 +52,39 @@ public class InicioAdapter extends RecyclerView.Adapter<InicioAdapter.ViewHolder
         holder.btnCancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), "Turno cancelado", Toast.LENGTH_SHORT).show();
+                ApiCliente.CanchaProService api = ApiCliente.getApiCanchaPro(view.getContext());
+                api.cancelarTurno(ApiCliente.getToken(view.getContext()), t.getId()).enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+                        if(response.isSuccessful()){
+                            Toast.makeText(view.getContext(), response.body(), Toast.LENGTH_SHORT).show();
+                            Navigation.findNavController(view).navigate(R.id.nav_inicio);
+                        }else{
+                            if(response.code() != 401){
+                                try {
+                                    Log.d("errorCancelarTurno", response.errorBody().string());
+                                    Toast.makeText(view.getContext(), response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<String> call, Throwable throwable) {
+                        Log.d("asfasfas", throwable.getMessage());
+                        Toast.makeText(view.getContext(), throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+        holder.btnEditarMisTurnos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle b = new Bundle();
+                b.putSerializable("turno", t);
+                Navigation.findNavController(view).navigate(R.id.nav_alta_update_turno, b);
             }
         });
     }
@@ -55,7 +96,7 @@ public class InicioAdapter extends RecyclerView.Adapter<InicioAdapter.ViewHolder
 
     public class ViewHolderInicio extends RecyclerView.ViewHolder {
         private TextView fecha, horaInicio, horaFin, cancha, precio;
-        private Button btnCancelar;
+        private Button btnCancelar, btnEditarMisTurnos;
         public ViewHolderInicio(@NonNull View itemView) {
             super(itemView);
             fecha = itemView.findViewById(R.id.tvFechaCardMisTurnos);
@@ -64,6 +105,7 @@ public class InicioAdapter extends RecyclerView.Adapter<InicioAdapter.ViewHolder
             cancha = itemView.findViewById(R.id.tvCanchaCardMisTurnos);
             precio = itemView.findViewById(R.id.tvPrecioCardMisTurnos);
             btnCancelar = itemView.findViewById(R.id.btnCancelarReservaCardMisTurnos);
+            btnEditarMisTurnos = itemView.findViewById(R.id.btnEditarTurnoCardMisTurnos);
         }
     }
 

@@ -58,6 +58,19 @@
         android:id="@+id/nav_inicio"
         android:name="com.nachomoyano04.canchapro.ui.inicio.InicioFragment"
         android:label="Inicio"
-        tools:layout="@layout/fragment_inicio" />
+        tools:layout="@layout/fragment_inicio" >
+        <action
+            android:id="@+id/action_nav_inicio_to_nav_alta_update_turno"
+            app:destination="@id/nav_alta_update_turno" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_alta_update_turno"
+        android:name="com.nachomoyano04.canchapro.ui.turnos.AltaTurnosFragment"
+        android:label="Turno"
+        tools:layout="@layout/fragment_alta_turnos" >
+        <action
+            android:id="@+id/action_nav_alta_update_turno_to_nav_inicio"
+            app:destination="@id/nav_inicio" />
+    </fragment>
 
 </navigation>

@@ -182,15 +182,16 @@
             android:id="@+id/btnEditarTurnoCardMisTurnos"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="20dp"
             android:backgroundTint="@color/secundario"
             android:text="Editar"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/btnCancelarReservaCardMisTurnos"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout6"
-            app:layout_constraintVertical_bias="0.142" />
+            app:layout_constraintVertical_bias="0.0" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

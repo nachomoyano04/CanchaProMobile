@@ -6,10 +6,12 @@ import android.content.SharedPreferences;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.nachomoyano04.canchapro.models.Cancha;
+import com.nachomoyano04.canchapro.models.Horarios;
 import com.nachomoyano04.canchapro.models.Turno;
 import com.nachomoyano04.canchapro.models.Usuario;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 import okhttp3.MultipartBody;
@@ -28,9 +30,12 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public class ApiCliente {
     public static final String URL_BASE = "http://192.168.1.7:5021/api/";
+    public static final String URLIMAGENCANCHA = "http://192.168.1.7:5021/img/cancha/";
+    public static final String URLIMAGENUSUARIO = "http://192.168.1.7:5021/img/usuario/";
     public static SharedPreferences sp;
 
     public static SharedPreferences conectar(Context context){
@@ -118,5 +123,18 @@ public class ApiCliente {
         @Multipart
         @PATCH("usuario/avatar")
         Call<String> editarAvatar(@Header("Authorization") String token, @Part MultipartBody.Part avatar);
+
+        //Cancelar Turno
+        @PATCH("turno/cancelar/{idTurno}")
+        Call<String> cancelarTurno(@Header("Authorization") String token, @Path("idTurno") int idTurno);
+
+        @GET("horarios/{idCancha}")
+        Call<Horarios> horariosPorCanchaYDia(@Header("Authorization") String token, @Path("idCancha") int idCancha, @Query("fecha") String fecha);
+
+        @GET("horarios/horariosinicio/{idCancha}")
+        Call<ArrayList<String>> horariosInicio(@Header("Authorization") String token, @Path("idCancha") int idCancha, @Query("fecha") String fecha, @Query("horaInicio") String horaInicio, @Query("horaFin") String horaFin);
+
+        @GET("horarios/horariosfin/{idCancha}")
+        Call<ArrayList<String>> horariosfin(@Header("Authorization") String token, @Path("idCancha") int idCancha, @Query("fecha") String fecha, @Query("horaInicio") String horaInicio, @Query("horaFin") String horaFin);
     }
 }

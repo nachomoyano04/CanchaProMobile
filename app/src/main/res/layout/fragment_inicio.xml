@@ -79,11 +79,23 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listadoMisTurnos"
-        android:layout_width="409dp"
-        android:layout_height="598dp"
+        android:layout_width="414dp"
+        android:layout_height="540dp"
         android:layout_marginTop="1dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+    <Button
+        android:id="@+id/btnAniadirTurnoInicio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/primario"
+        android:text="Añadir turno"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/listadoMisTurnos"
+        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

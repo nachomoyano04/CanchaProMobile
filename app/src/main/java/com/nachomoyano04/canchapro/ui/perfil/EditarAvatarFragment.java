@@ -29,6 +29,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.nachomoyano04.canchapro.R;
 import com.nachomoyano04.canchapro.databinding.FragmentEditarAvatarBinding;
 import com.nachomoyano04.canchapro.models.Usuario;
+import com.nachomoyano04.canchapro.request.ApiCliente;
 
 public class EditarAvatarFragment extends Fragment {
 
@@ -55,7 +56,7 @@ public class EditarAvatarFragment extends Fragment {
             public void onChanged(String s) {
                 Glide.with(getContext())
                         .load(s.startsWith("http")?s: Uri.parse(s))
-                        .placeholder(R.drawable.ic_launcher_background)
+                        .placeholder(R.drawable.cancha)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(binding.ivAvatarEditarAvatarFragment);
             }

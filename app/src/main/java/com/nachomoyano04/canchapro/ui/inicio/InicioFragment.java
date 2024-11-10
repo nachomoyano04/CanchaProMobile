@@ -8,6 +8,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavOptions;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -21,6 +23,7 @@ import com.nachomoyano04.canchapro.R;
 import com.nachomoyano04.canchapro.databinding.FragmentInicioBinding;
 import com.nachomoyano04.canchapro.models.Turno;
 import com.nachomoyano04.canchapro.models.Usuario;
+import com.nachomoyano04.canchapro.request.ApiCliente;
 
 import java.util.ArrayList;
 
@@ -55,10 +58,17 @@ public class InicioFragment extends Fragment {
                 binding.tvCorreoFragmentInicio.setText(usuario.getCorreo());
                 binding.tvNYAFragmentInicio.setText(usuario.nombreYApellido());
                 Glide.with(getContext())
-                        .load("http://192.168.1.7:5021/img/usuario/"+usuario.getAvatar())
+                        .load(ApiCliente.URLIMAGENUSUARIO+usuario.getAvatar())
                         .placeholder(R.drawable.ic_launcher_background)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(binding.ivAvatarFragmentInicio);
+            }
+        });
+        binding.btnAniadirTurnoInicio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //AGREGAMOS NAV OPTIONS PARA SACAR nav_inicio del stack de fragments, y poder volver al nav_inico despues...
+                Navigation.findNavController(view).navigate(R.id.nav_canchas, null, new NavOptions.Builder().setPopUpTo(R.id.nav_inicio,true).build());
             }
         });
         vm.llenarLista();
