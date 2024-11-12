@@ -128,13 +128,18 @@ public class ApiCliente {
         @PATCH("turno/cancelar/{idTurno}")
         Call<String> cancelarTurno(@Header("Authorization") String token, @Path("idTurno") int idTurno);
 
-        @GET("horarios/{idCancha}")
-        Call<Horarios> horariosPorCanchaYDia(@Header("Authorization") String token, @Path("idCancha") int idCancha, @Query("fecha") String fecha);
-
+        //Obtener horarios de inicio posibles en una fecha y cancha determinadas
         @GET("horarios/horariosinicio/{idCancha}")
-        Call<ArrayList<String>> horariosInicio(@Header("Authorization") String token, @Path("idCancha") int idCancha, @Query("fecha") String fecha, @Query("horaInicio") String horaInicio, @Query("horaFin") String horaFin);
+        Call<ArrayList<String>> horariosInicio(@Header("Authorization") String token, @Path("idCancha") int idCancha, @Query("fecha") String fecha, @Query("editar") Boolean editar);
 
+        //Obtener horarios de fin posibles a partir de una hora de inicio en una fecha y cancha determinadas
         @GET("horarios/horariosfin/{idCancha}")
-        Call<ArrayList<String>> horariosfin(@Header("Authorization") String token, @Path("idCancha") int idCancha, @Query("fecha") String fecha, @Query("horaInicio") String horaInicio, @Query("horaFin") String horaFin);
+        Call<ArrayList<String>> horariosfin(@Header("Authorization") String token, @Path("idCancha") int idCancha, @Query("fecha") String fecha, @Query("horaInicio") String horaInicio);
+
+        //Nuevo turno
+        @FormUrlEncoded
+        @POST("turno/{idCancha}")
+        Call<String> nuevoTurno(@Header("Authorization") String token, @Path("idCancha")int idCancha, @Field("fechaInicio") LocalDateTime fechaInicio, @Field("fechaFin") LocalDateTime fechaFin, @Field("metodo") String metodo);
+
     }
 }

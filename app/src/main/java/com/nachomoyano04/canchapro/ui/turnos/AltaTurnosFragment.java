@@ -10,6 +10,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -37,8 +38,6 @@ public class AltaTurnosFragment extends Fragment {
 
     private FragmentAltaTurnosBinding binding;
     private AltaTurnosViewModel vm;
-    private Turno t;
-    private Cancha c;
 
     public static AltaTurnosFragment newInstance() {
         return new AltaTurnosFragment();
@@ -54,25 +53,30 @@ public class AltaTurnosFragment extends Fragment {
             public void onChanged(Turno t) {
                 binding.etFechaAltaTurnos.setText(t.getFechaInicio().toLocalDate().toString());
                 binding.tvCanchaAltaTurnos.setText(t.getCancha().getTipo().getNombre());
-                vm.getHorariosDisponibles(t);
+                vm.setearMutableFecha(t.getFechaInicio());
             }
         });
-        vm.getMHorarios().observe(getViewLifecycleOwner(), new Observer<Horarios>() {
+        vm.getMFecha().observe(getViewLifecycleOwner(), new Observer<LocalDateTime>() {
             @Override
-            public void onChanged(Horarios horarios) {
-                vm.setMutableHoraInicio(t, horarios);
+            public void onChanged(LocalDateTime localDateTime) {
+                //cuando seteamos la fecha deberia haber un metodo que
+                // setee los mutables de hora de inicio con los horarios de inicio
+                //disponibles con esa fecha
+                vm.setMutableHoraInicio(localDateTime);
             }
         });
         vm.getMHoraInicio().observe(getViewLifecycleOwner(), new Observer<ArrayList<String>>() {
             @Override
             public void onChanged(ArrayList<String> strings) {
+                //viniendo desde el seteo de la fecha lo que deberia hacerse
+                //es poner el spinner y setear el horario de fin con el spinner seleccionado
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.spinner_item, strings);
                 adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
                 binding.spinnerHoraInicioAltaTurnos.setAdapter(adapter);
                 binding.spinnerHoraInicioAltaTurnos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        vm.setMutableHoraFin(t, LocalTime.parse(adapterView.getSelectedItem().toString()));
+                        vm.setMutableHoraFin(LocalTime.parse(adapterView.getSelectedItem().toString()));
                     }
 
                     @Override
@@ -82,12 +86,22 @@ public class AltaTurnosFragment extends Fragment {
                 });
             }
         });
+        //Observador que setea el Spinner de hora fin.
         vm.getMHoraFin().observe(getViewLifecycleOwner(), new Observer<ArrayList<String>>() {
             @Override
             public void onChanged(ArrayList<String> localTimes) {
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.spinner_item, localTimes);
                 adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
                 binding.spinnerHoraFinAltaTurnos.setAdapter(adapter);
+            }
+        });
+        binding.btnGuardarAltaTurnos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String fecha = binding.etFechaAltaTurnos.getText().toString();
+                String horaInicio = (String) binding.spinnerHoraInicioAltaTurnos.getSelectedItem();
+                String horaFin = (String) binding.spinnerHoraFinAltaTurnos.getSelectedItem();
+                vm.btnGuardar(view, fecha, horaInicio, horaFin);
             }
         });
         binding.ivBtnEditarFechaAltaTurnos.setOnClickListener(new View.OnClickListener() {
@@ -97,7 +111,8 @@ public class AltaTurnosFragment extends Fragment {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                         binding.etFechaAltaTurnos.setText(year+"-"+(month+1)+"-"+day);
-                        vm.setearMutable(c,t);
+                        LocalDateTime fechaElegida = LocalDateTime.of(year, (month+1), day,0,0);
+                        vm.setearMutableFecha(fechaElegida);
                     }
                 }, LocalDateTime.now().getYear(), LocalDateTime.now().getMonthValue()-1, LocalDateTime.now().getDayOfMonth());
                 dpd.getDatePicker().setMinDate(System.currentTimeMillis());
@@ -106,9 +121,10 @@ public class AltaTurnosFragment extends Fragment {
             }
         });
         Bundle b = getArguments();
-        t = (Turno) b.getSerializable("turno");
-        c = (Cancha) b.getSerializable("cancha");
-        vm.setearMutable(c, t);
+        Turno turno = (Turno) b.getSerializable("turno");
+        Cancha cancha = (Cancha) b.getSerializable("cancha");
+        Boolean editar = (Boolean) b.getSerializable("editar");
+        vm.setearMutable(cancha, turno, editar);
         return binding.getRoot();
     }
 

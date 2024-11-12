@@ -84,6 +84,7 @@ public class InicioAdapter extends RecyclerView.Adapter<InicioAdapter.ViewHolder
             public void onClick(View view) {
                 Bundle b = new Bundle();
                 b.putSerializable("turno", t);
+                b.putSerializable("editar", true);
                 Navigation.findNavController(view).navigate(R.id.nav_alta_update_turno, b);
             }
         });

@@ -2,22 +2,23 @@ package com.nachomoyano04.canchapro.ui.turnos;
 
 import android.app.Application;
 import android.content.Context;
-import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
+import androidx.navigation.Navigation;
 
+import com.nachomoyano04.canchapro.R;
 import com.nachomoyano04.canchapro.models.Cancha;
-import com.nachomoyano04.canchapro.models.Horarios;
 import com.nachomoyano04.canchapro.models.Turno;
 import com.nachomoyano04.canchapro.request.ApiCliente;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -30,9 +31,10 @@ import retrofit2.Response;
 public class AltaTurnosViewModel extends AndroidViewModel {
 
     private MutableLiveData<Turno> mTurno;
-    private MutableLiveData<Horarios> mHorarios;
+    private MutableLiveData<LocalDateTime> mFecha;
     private MutableLiveData<ArrayList<String>> mHoraInicio;
     private MutableLiveData<ArrayList<String>> mHoraFin;
+    private MutableLiveData<Boolean> mBooleano = new MutableLiveData<>(false);
     private Context context;
 
     public AltaTurnosViewModel(@NonNull Application application) {
@@ -47,11 +49,11 @@ public class AltaTurnosViewModel extends AndroidViewModel {
         return mTurno;
     }
 
-    public LiveData<Horarios> getMHorarios(){
-        if(mHorarios == null){
-            mHorarios = new MutableLiveData<>();
+    public LiveData<LocalDateTime> getMFecha(){
+        if(mFecha == null){
+            mFecha = new MutableLiveData<>();
         }
-        return mHorarios;
+        return mFecha;
     }
 
     public LiveData<ArrayList<String>> getMHoraInicio(){
@@ -68,46 +70,28 @@ public class AltaTurnosViewModel extends AndroidViewModel {
         return mHoraFin;
     }
 
-    public void setearMutable(Cancha c, Turno t){
+    public void setearMutable(Cancha c, Turno t, Boolean editar){
+        if(editar != null){
+            mBooleano.setValue(editar);
+        }
         if(t != null){
             mTurno.postValue(t);
-        }else{
+        }else if(c != null){
             Turno turno = new Turno(0, c.getId(), c, 0, null, 0, null, LocalDateTime.now(), LocalDateTime.now(), null, 0, null, 1);
             mTurno.postValue(turno);
+        }else{
+            Toast.makeText(context, "Todo null", Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void getHorariosDisponibles(Turno t) {
-        if(t != null){
-            ApiCliente.CanchaProService api = ApiCliente.getApiCanchaPro(context);
-            api.horariosPorCanchaYDia(ApiCliente.getToken(context), t.getCanchaId(), t.getFechaInicio().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)).enqueue(new Callback<Horarios>() {
-                @Override
-                public void onResponse(Call<Horarios> call, Response<Horarios> response) {
-                    if(response.isSuccessful()){
-                        mHorarios.postValue(response.body());
-                    }else{
-                        if(response.code() != 401){
-                            try {
-                                Log.d("ErrorHorariosDiaYCancha", response.errorBody().string());
-                                Toast.makeText(context, response.errorBody().string(), Toast.LENGTH_SHORT).show();
-                            } catch (IOException e) {
-                                throw new RuntimeException(e);
-                            }
-                        }
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<Horarios> call, Throwable throwable) {
-                    Log.d("errorTasda", throwable.getMessage());
-                    Toast.makeText(context, "Error en el servidor", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
+    public void setearMutableFecha(LocalDateTime fecha){
+        mFecha.postValue(fecha);
     }
-    public void setMutableHoraInicio(Turno t, Horarios horarios) {
+
+    public void setMutableHoraInicio(LocalDateTime fecha) {
         ApiCliente.CanchaProService api = ApiCliente.getApiCanchaPro(context);
-        api.horariosInicio(ApiCliente.getToken(context), t.getCanchaId(), t.getFechaInicio().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME), horarios.getHoraInicio().format(DateTimeFormatter.ofPattern("HH:mm:ss")), horarios.getHoraFin().format(DateTimeFormatter.ofPattern("HH:mm:ss"))).enqueue(new Callback<ArrayList<String>>() {
+        Turno t = getMTurno().getValue();
+        api.horariosInicio(ApiCliente.getToken(context), t.getCanchaId(), fecha.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME), mBooleano.getValue()).enqueue(new Callback<ArrayList<String>>() {
             @Override
             public void onResponse(Call<ArrayList<String>> call, Response<ArrayList<String>> response) {
                 if (response.isSuccessful()){
@@ -132,9 +116,10 @@ public class AltaTurnosViewModel extends AndroidViewModel {
         });
     }
 
-    public void setMutableHoraFin(Turno t, LocalTime horaInicio) {
+    public void setMutableHoraFin(LocalTime horaInicio) {
+        Turno t = mTurno.getValue();
         ApiCliente.CanchaProService api = ApiCliente.getApiCanchaPro(context);
-        api.horariosfin(ApiCliente.getToken(context), t.getCanchaId(), t.getFechaInicio().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME), horaInicio.format(DateTimeFormatter.ofPattern("HH:mm:ss")), mHorarios.getValue().getHoraFin().format(DateTimeFormatter.ofPattern("HH:mm:ss"))).enqueue(new Callback<ArrayList<String>>() {
+        api.horariosfin(ApiCliente.getToken(context), t.getCanchaId(), t.getFechaInicio().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME), horaInicio.toString()).enqueue(new Callback<ArrayList<String>>() {
             @Override
             public void onResponse(Call<ArrayList<String>> call, Response<ArrayList<String>> response) {
                 if (response.isSuccessful()){
@@ -157,5 +142,41 @@ public class AltaTurnosViewModel extends AndroidViewModel {
                 Toast.makeText(context, throwable.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+
+    public void btnGuardar(View view, String fecha, String horaInicio, String horaFin){
+        Turno turno = mTurno.getValue();
+        ApiCliente.CanchaProService api = ApiCliente.getApiCanchaPro(context);
+        LocalDateTime fechaHoraInicio = LocalDateTime.of(LocalDate.parse(fecha), LocalTime.parse(horaInicio));
+        LocalDateTime fechaHoraFin = LocalDateTime.of(LocalDate.parse(fecha), LocalTime.parse(horaFin));
+        if(mBooleano.getValue()){
+            Toast.makeText(context, "Editando", Toast.LENGTH_SHORT).show();
+        }else{
+            api.nuevoTurno(ApiCliente.getToken(context), turno.getCanchaId(), fechaHoraInicio, fechaHoraFin, "Transferencia").enqueue(new Callback<String>() {
+                @Override
+                public void onResponse(Call<String> call, Response<String> response) {
+                    if(response.isSuccessful()){
+                        Toast.makeText(context, response.body(), Toast.LENGTH_SHORT).show();
+                        Navigation.findNavController(view).navigate(R.id.nav_canchas);
+                    }else{
+                        if(response.code() != 401){
+                            try {
+                                Log.d("Error nuevo turno", response.errorBody().string());
+                                Toast.makeText(context, response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<String> call, Throwable throwable) {
+                    Toast.makeText(context, "Error servidor", Toast.LENGTH_SHORT).show();
+                    Log.d("Error nuevo turno asdasd ", throwable.getMessage());
+                }
+            });
+        }
     }
 }
