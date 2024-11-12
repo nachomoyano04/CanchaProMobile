@@ -5,21 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
-    app:cardBackgroundColor="#FFF9C4"
+    app:cardBackgroundColor="#A8E6A1"
     app:cardCornerRadius="20dp"
     app:cardElevation="10dp"
     app:contentPadding="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_width="375dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white">
 
         <TextView
-            android:id="@+id/textView28"
+            android:id="@+id/textView42"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="PENDIENTE"
+            android:text="COMPLETADO"
             android:textColor="@color/black"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -27,18 +28,38 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <Button
+            android:id="@+id/btnCancelarEditarReseniaCardCompletado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/design_default_color_error"
+            android:text="Cancelar"
+            android:textSize="18sp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/btnEditarYGuardarReseniaCardCompletado"
+            app:layout_constraintTop_toBottomOf="@+id/etComentarioCardTurnoCompletado"
+            app:layout_constraintVertical_bias="1.0" />
+
         <LinearLayout
-            android:id="@+id/linearLayout2"
+            android:id="@+id/lLCompletado1"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="16dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView28">
+            app:layout_constraintTop_toBottomOf="@+id/ratingCardTurnoCompletado">
 
             <TextView
-                android:id="@+id/textView29"
+                android:id="@+id/textView29Completados"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Fecha"
@@ -46,7 +67,7 @@
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/tvFechaCardMisTurnos"
+                android:id="@+id/tvFechaCardMisTurnosCompletados"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -58,77 +79,68 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/linearLayout3"
+            android:id="@+id/lLCompletado2"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="16dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+            app:layout_constraintTop_toBottomOf="@+id/lLCompletado1">
 
             <TextView
-                android:id="@+id/textView34"
+                android:id="@+id/textView30Completados"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hora inicio"
+                android:text="Desde"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/tvHoraInicioCardMisTurnos"
+                android:id="@+id/tvHoraInicioCardMisTurnosCompletados"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingRight="10sp"
                 android:text="TextView"
-                android:textAlignment="textEnd"
+                android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayout4"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
 
             <TextView
-                android:id="@+id/textView36"
+                android:id="@+id/textView31Completados"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hora fin"
+                android:text="Hasta"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/tvHoraFinCardMisTurnos"
+                android:id="@+id/tvHoraFinCardMisTurnosCompletados"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingRight="10sp"
                 android:text="TextView"
-                android:textAlignment="textEnd"
+                android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/linearLayout5"
+            android:id="@+id/lLCompletado4"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="12dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
+            app:layout_constraintTop_toBottomOf="@+id/lLCompletado2">
 
             <TextView
-                android:id="@+id/textView38"
+                android:id="@+id/textView32Completados"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Cancha"
@@ -136,7 +148,7 @@
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/tvCanchaCardMisTurnos"
+                android:id="@+id/tvCanchaCardMisTurnosCompletados"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -148,17 +160,18 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/linearLayout6"
+            android:id="@+id/lLCompletado5"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="24dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
+            app:layout_constraintTop_toBottomOf="@+id/lLCompletado4">
 
             <TextView
-                android:id="@+id/textView40"
+                android:id="@+id/textView33Completados"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Precio"
@@ -166,7 +179,7 @@
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/tvPrecioCardMisTurnos"
+                android:id="@+id/tvPrecioCardMisTurnosCompletados"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -175,38 +188,75 @@
                 android:textAlignment="textEnd"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
+
         </LinearLayout>
 
-        <Button
-            android:id="@+id/btnCancelarReservaCardMisTurnos"
+        <RatingBar
+            android:id="@+id/ratingCardTurnoCompletado"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="10dp"
+            android:isIndicator="true"
+            android:stepSize="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView23"
+            app:layout_constraintTop_toBottomOf="@+id/textView42" />
+
+        <TextView
+            android:id="@+id/textView23"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Calificación"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toStartOf="@+id/ratingCardTurnoCompletado"
+            app:layout_constraintHorizontal_bias="0.571"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView42" />
+
+        <EditText
+            android:id="@+id/etComentarioCardTurnoCompletado"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="21dp"
+            android:ems="10"
+            android:enabled="false"
+            android:gravity="start|top"
+            android:hint="comentario..."
+            android:inputType="textMultiLine"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView25" />
+
+        <TextView
+            android:id="@+id/textView25"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="10dp"
-            android:backgroundTint="@color/design_default_color_error"
-            android:text="Cancelar Turno"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="19dp"
+            android:text="Comentario:"
+            android:textAlignment="textStart"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout6"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/lLCompletado5" />
 
         <Button
-            android:id="@+id/btnEditarTurnoCardMisTurnos"
+            android:id="@+id/btnEditarYGuardarReseniaCardCompletado"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="7dp"
             android:backgroundTint="@color/secundario"
             android:text="Editar"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/btnCancelarReservaCardMisTurnos"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout6"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etComentarioCardTurnoCompletado"
+            app:layout_constraintVertical_bias="0.285" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.cardview.widget.CardView>

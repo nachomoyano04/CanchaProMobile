@@ -168,4 +168,15 @@
         app:layout_constraintTop_toBottomOf="@+id/etCorreoPerfil"
         tools:src="@tools:sample/avatars" />
 
+    <Button
+        android:id="@+id/btnVerHistorialDeTurnos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="43dp"
+        android:layout_marginTop="28dp"
+        android:text="Historial turnos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivAvatarPerfil"
+        app:layout_constraintTop_toBottomOf="@+id/btnEditarPerfil" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

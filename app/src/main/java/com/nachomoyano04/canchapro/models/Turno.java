@@ -21,6 +21,7 @@ public class Turno implements Serializable {
     private LocalDateTime fechaFin;
     private String comentario;
     private int calificacion;
+    @JsonAdapter(LocalDateTimeAdapter.class)
     private LocalDateTime fechaComentario;
     private int estado;
 

@@ -35,6 +35,9 @@
         <action
             android:id="@+id/action_nav_perfilFragment_to_cambiarPasswordFragment"
             app:destination="@id/cambiarPasswordFragment" />
+        <action
+            android:id="@+id/action_nav_perfilFragment_to_historialTurnosFragment"
+            app:destination="@id/nav_historial_turnos" />
     </fragment>
     <fragment
         android:id="@+id/cambiarPasswordFragment"
@@ -71,6 +74,15 @@
         <action
             android:id="@+id/action_nav_alta_update_turno_to_nav_inicio"
             app:destination="@id/nav_inicio" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_historial_turnos"
+        android:name="com.nachomoyano04.canchapro.ui.turnos.HistorialTurnosFragment"
+        android:label="Historial de turnos"
+        tools:layout="@layout/fragment_historial_turnos">
+        <action
+            android:id="@+id/action_historialTurnosFragment_to_nav_perfilFragment"
+            app:destination="@id/nav_perfilFragment" />
     </fragment>
 
 </navigation>

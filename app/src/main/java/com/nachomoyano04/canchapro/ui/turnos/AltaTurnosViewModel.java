@@ -1,7 +1,9 @@
 package com.nachomoyano04.canchapro.ui.turnos;
 
+import android.app.AlertDialog;
 import android.app.Application;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -157,7 +159,7 @@ public class AltaTurnosViewModel extends AndroidViewModel {
                 @Override
                 public void onResponse(Call<String> call, Response<String> response) {
                     if(response.isSuccessful()){
-                        Toast.makeText(context, response.body(), Toast.LENGTH_SHORT).show();
+                        mostrarMensaje("Turno reservado", response.body());
                         Navigation.findNavController(view).navigate(R.id.nav_canchas);
                     }else{
                         if(response.code() != 401){
@@ -178,5 +180,18 @@ public class AltaTurnosViewModel extends AndroidViewModel {
                 }
             });
         }
+    }
+
+    public void mostrarMensaje(String titulo, String mensaje){
+        new AlertDialog.Builder(context)
+                .setTitle(titulo)
+                .setMessage(mensaje)
+                .setNeutralButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                })
+                .show();
     }
 }

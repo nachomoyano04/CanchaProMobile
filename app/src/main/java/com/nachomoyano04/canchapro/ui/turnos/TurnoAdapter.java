@@ -1,7 +1,5 @@
 package com.nachomoyano04.canchapro.ui.turnos;
 
-import android.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +28,7 @@ public class TurnoAdapter extends RecyclerView.Adapter<TurnoAdapter.ViewHolderTu
     @NonNull
     @Override
     public ViewHolderTurno onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = li.inflate(R.layout.card_turno, parent, false);
+        View view = li.inflate(R.layout.card_turno_cancelado, parent, false);
         return new ViewHolderTurno(view);
     }
 
@@ -57,9 +55,9 @@ public class TurnoAdapter extends RecyclerView.Adapter<TurnoAdapter.ViewHolderTu
         private Button btnReservar;
         public ViewHolderTurno(@NonNull View itemView) {
             super(itemView);
-            tvHoraInicio = itemView.findViewById(R.id.tvFechaInicioCardTurno);
-            tvHoraFin = itemView.findViewById(R.id.tvHastaCardTurno);
-            btnReservar = itemView.findViewById(R.id.btnReservarCardTurno);
+//            tvHoraInicio = itemView.findViewById(R.id.tvFechaInicioCardTurno);
+//            tvHoraFin = itemView.findViewById(R.id.tvHastaCardTurno);
+//            btnReservar = itemView.findViewById(R.id.btnReservarCardTurno);
         }
     }
 }

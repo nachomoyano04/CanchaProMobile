@@ -33,9 +33,9 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public class ApiCliente {
-    public static final String URL_BASE = "http://192.168.1.7:5021/api/";
-    public static final String URLIMAGENCANCHA = "http://192.168.1.7:5021/img/cancha/";
-    public static final String URLIMAGENUSUARIO = "http://192.168.1.7:5021/img/usuario/";
+    public static final String URL_BASE = "http://192.168.1.4:5021/api/";
+    public static final String URLIMAGENCANCHA = "http://192.168.1.4:5021/img/cancha/";
+    public static final String URLIMAGENUSUARIO = "http://192.168.1.4:5021/img/usuario/";
     public static SharedPreferences sp;
 
     public static SharedPreferences conectar(Context context){
@@ -141,5 +141,13 @@ public class ApiCliente {
         @POST("turno/{idCancha}")
         Call<String> nuevoTurno(@Header("Authorization") String token, @Path("idCancha")int idCancha, @Field("fechaInicio") LocalDateTime fechaInicio, @Field("fechaFin") LocalDateTime fechaFin, @Field("metodo") String metodo);
 
+        //Lista de turnos por usuario
+        @GET("turno")
+        Call<ArrayList<Turno>> turnosPorUsuario(@Header("Authorization") String token);
+
+        //Nuevo comentario
+        @FormUrlEncoded
+        @PATCH("turno/comentario/{idTurno}")
+        Call<String> nuevoComentario(@Header("Authorization") String token, @Path("idTurno") int idTurno, @Field("calificacion") int calificacion, @Field("comentario") String comentario);
     }
 }

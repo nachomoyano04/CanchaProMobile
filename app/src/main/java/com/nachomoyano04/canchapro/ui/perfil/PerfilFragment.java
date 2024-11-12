@@ -9,6 +9,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -104,6 +105,12 @@ public class PerfilFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 vm.cancelarEditar();
+            }
+        });
+        binding.btnVerHistorialDeTurnos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.nav_historial_turnos);
             }
         });
         vm.getUsuario();
