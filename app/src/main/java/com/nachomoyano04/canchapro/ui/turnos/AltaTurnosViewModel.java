@@ -20,9 +20,13 @@ import com.nachomoyano04.canchapro.models.Turno;
 import com.nachomoyano04.canchapro.request.ApiCliente;
 
 import java.io.IOException;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
@@ -36,12 +40,20 @@ public class AltaTurnosViewModel extends AndroidViewModel {
     private MutableLiveData<LocalDateTime> mFecha;
     private MutableLiveData<ArrayList<String>> mHoraInicio;
     private MutableLiveData<ArrayList<String>> mHoraFin;
+    private MutableLiveData<String> mRespuestaAltaYEditar;
     private MutableLiveData<Boolean> mBooleano = new MutableLiveData<>(false);
     private Context context;
 
     public AltaTurnosViewModel(@NonNull Application application) {
         super(application);
         context = application.getApplicationContext();
+    }
+
+    public LiveData<String> getMRespuestaAltaYEditar(){
+        if(mRespuestaAltaYEditar == null){
+            mRespuestaAltaYEditar = new MutableLiveData<>();
+        }
+        return mRespuestaAltaYEditar;
     }
 
     public LiveData<Turno> getMTurno(){
@@ -159,8 +171,7 @@ public class AltaTurnosViewModel extends AndroidViewModel {
                 @Override
                 public void onResponse(Call<String> call, Response<String> response) {
                     if(response.isSuccessful()){
-                        mostrarMensaje("Turno reservado", response.body());
-                        Navigation.findNavController(view).navigate(R.id.nav_canchas);
+                        mRespuestaAltaYEditar.postValue(response.body());
                     }else{
                         if(response.code() != 401){
                             try {
@@ -182,16 +193,4 @@ public class AltaTurnosViewModel extends AndroidViewModel {
         }
     }
 
-    public void mostrarMensaje(String titulo, String mensaje){
-        new AlertDialog.Builder(context)
-                .setTitle(titulo)
-                .setMessage(mensaje)
-                .setNeutralButton("Ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                })
-                .show();
-    }
 }

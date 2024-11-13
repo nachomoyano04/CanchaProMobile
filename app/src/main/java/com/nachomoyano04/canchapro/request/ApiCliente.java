@@ -139,7 +139,7 @@ public class ApiCliente {
         //Nuevo turno
         @FormUrlEncoded
         @POST("turno/{idCancha}")
-        Call<String> nuevoTurno(@Header("Authorization") String token, @Path("idCancha")int idCancha, @Field("fechaInicio") LocalDateTime fechaInicio, @Field("fechaFin") LocalDateTime fechaFin, @Field("metodo") String metodo);
+        Call<String> nuevoTurno(@Header("Authorization") String token, @Path("idCancha")int idCancha, @Field("fechaInicio") LocalDateTime fechaInicio, @Field("fechaFin") LocalDateTime fechaFin, @Field("metodoPagoReserva") String metodoPagoReserva);
 
         //Lista de turnos por usuario
         @GET("turno")
