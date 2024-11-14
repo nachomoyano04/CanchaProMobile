@@ -39,9 +39,6 @@ public class HistorialTurnosFragment extends Fragment {
         vm.getMListaMisTurnos().observe(getViewLifecycleOwner(), new Observer<ArrayList<Turno>>() {
             @Override
             public void onChanged(ArrayList<Turno> turnos) {
-                for(Turno t: turnos){
-                    Log.d("Turnosss", t.toString());
-                }
                 GridLayoutManager grid = new GridLayoutManager(getContext(), 1, LinearLayoutManager.VERTICAL, false);
                 HistorialTurnoAdapter adapter = new HistorialTurnoAdapter(turnos, inflater);
                 binding.listaHistorialTurnos.setLayoutManager(grid);

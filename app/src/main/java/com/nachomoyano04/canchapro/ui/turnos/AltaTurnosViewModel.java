@@ -42,6 +42,7 @@ public class AltaTurnosViewModel extends AndroidViewModel {
     private MutableLiveData<ArrayList<String>> mHoraFin;
     private MutableLiveData<String> mRespuestaAltaYEditar;
     private MutableLiveData<Boolean> mBooleano = new MutableLiveData<>(false);
+    private MutableLiveData<Boolean> mSinHorarios;
     private Context context;
 
     public AltaTurnosViewModel(@NonNull Application application) {
@@ -77,6 +78,13 @@ public class AltaTurnosViewModel extends AndroidViewModel {
         return mHoraInicio;
     }
 
+    public LiveData<Boolean> getMSinHorarios(){
+        if(mSinHorarios == null){
+            mSinHorarios = new MutableLiveData<>();
+        }
+        return mSinHorarios;
+    }
+
     public LiveData<ArrayList<String>> getMHoraFin(){
         if(mHoraFin == null){
             mHoraFin = new MutableLiveData<>();
@@ -110,7 +118,12 @@ public class AltaTurnosViewModel extends AndroidViewModel {
             @Override
             public void onResponse(Call<ArrayList<String>> call, Response<ArrayList<String>> response) {
                 if (response.isSuccessful()){
-                    mHoraInicio.postValue(response.body());
+                    if(response.body().size() > 0){
+                        mHoraInicio.postValue(response.body());
+                        mSinHorarios.setValue(true);
+                    }else{
+                        mSinHorarios.setValue(false);
+                    }
                 }else{
                     if(response.code() != 401){
                         try {
@@ -216,5 +229,10 @@ public class AltaTurnosViewModel extends AndroidViewModel {
             });
         }
     }
-
+    public int getVisibilidadFromBoolean(Boolean valor) {
+        if(valor != null && valor){
+            return View.VISIBLE;
+        }
+        return View.INVISIBLE;
+    }
 }

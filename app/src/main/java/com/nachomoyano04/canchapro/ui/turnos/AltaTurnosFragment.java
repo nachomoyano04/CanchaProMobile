@@ -133,6 +133,20 @@ public class AltaTurnosFragment extends Fragment {
                 binding.spinnerHoraFinAltaTurnos.setAdapter(adapter);
             }
         });
+        vm.getMSinHorarios().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                int visibilidad = vm.getVisibilidadFromBoolean(aBoolean);
+                binding.spinnerHoraInicioAltaTurnos.setVisibility(visibilidad);
+                binding.spinnerHoraFinAltaTurnos.setVisibility(visibilidad);
+                binding.tvCanchaAltaTurnos.setVisibility(visibilidad);
+                binding.textView35.setVisibility(visibilidad);
+                binding.textView37.setVisibility(visibilidad);
+                binding.textView41.setVisibility(visibilidad);
+                binding.tvMensajeFragmentAltaTurnos.setVisibility(vm.getVisibilidadFromBoolean(!aBoolean));
+                binding.btnGuardarAltaTurnos.setEnabled(aBoolean);
+            }
+        });
         vm.getMRespuestaAltaYEditar().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(String mensaje) {

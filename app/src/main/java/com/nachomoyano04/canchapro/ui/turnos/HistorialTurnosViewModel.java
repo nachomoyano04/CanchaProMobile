@@ -40,7 +40,7 @@ public class HistorialTurnosViewModel extends AndroidViewModel {
 
     public void llenarLista(){
         ApiCliente.CanchaProService api = ApiCliente.getApiCanchaPro(context);
-        api.turnosPorUsuario(ApiCliente.getToken(context)).enqueue(new Callback<ArrayList<Turno>>() {
+        api.turnosCompletadosPorUsuario(ApiCliente.getToken(context)).enqueue(new Callback<ArrayList<Turno>>() {
             @Override
             public void onResponse(Call<ArrayList<Turno>> call, Response<ArrayList<Turno>> response) {
                 if(response.isSuccessful()){

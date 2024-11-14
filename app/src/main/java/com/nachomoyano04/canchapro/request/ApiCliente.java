@@ -145,6 +145,10 @@ public class ApiCliente {
         @GET("turno")
         Call<ArrayList<Turno>> turnosPorUsuario(@Header("Authorization") String token);
 
+        //Lista de turnos completados por usuario
+        @GET("turno/completados")
+        Call<ArrayList<Turno>> turnosCompletadosPorUsuario(@Header("Authorization") String token);
+
         //Nuevo comentario
         @FormUrlEncoded
         @PATCH("turno/comentario/{idTurno}")

@@ -49,7 +49,7 @@ public class InicioViewModel extends AndroidViewModel {
 
     public void llenarLista(){
         ApiCliente.CanchaProService api = ApiCliente.getApiCanchaPro(context);
-        api.misProximosTurnos(ApiCliente.getToken(context)).enqueue(new Callback<ArrayList<Turno>>() {
+        api.turnosPorUsuario(ApiCliente.getToken(context)).enqueue(new Callback<ArrayList<Turno>>() {
             @Override
             public void onResponse(Call<ArrayList<Turno>> call, Response<ArrayList<Turno>> response) {
                 if(response.isSuccessful()){
