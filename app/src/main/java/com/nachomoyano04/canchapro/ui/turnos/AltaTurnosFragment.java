@@ -40,6 +40,7 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.time.temporal.TemporalField;
 import java.util.ArrayList;
 import java.util.Date;
@@ -63,20 +64,27 @@ public class AltaTurnosFragment extends Fragment {
             @Override
             public void onChanged(Turno t) {
                 binding.tvCanchaAltaTurnos.setText(t.getCancha().getTipo().getNombre());
-                vm.setearMutableFecha(t.getFechaInicio());
                 LocalDate fechaDeHoy = t.getFechaInicio().toLocalDate();
                 ArrayList<String> fechas = new ArrayList<>();
-                fechas.add(fechaDeHoy.toString());
-                fechas.add(fechaDeHoy.plusDays(1).toString());
-                fechas.add(fechaDeHoy.plusDays(2).toString());
+                fechas.add(DateTimeFormatter.ofPattern("EEEE dd/MM", Locale.forLanguageTag("es")).format(fechaDeHoy));
+                fechas.add(DateTimeFormatter.ofPattern("EEEE dd/MM", Locale.forLanguageTag("es")).format(fechaDeHoy.plusDays(1)));
+                fechas.add(DateTimeFormatter.ofPattern("EEEE dd/MM", Locale.forLanguageTag("es")).format(fechaDeHoy.plusDays(2)));
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.spinner_item, fechas);
                 adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
                 binding.spinnerFechaAltaTurnos.setAdapter(adapter);
                 binding.spinnerFechaAltaTurnos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-                        vm.setearMutableFecha(LocalDateTime.parse(adapterView.getSelectedItem().toString()+" 00:00", formatter));
+                        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("EEEE dd/MM yyyy", Locale.forLanguageTag("es"));
+                        try {
+                            int year = LocalDate.now().getYear();
+                            LocalDate date = LocalDate.parse(adapterView.getSelectedItem().toString()+" "+year, inputFormatter);
+                            LocalDateTime dateAndHour = date.atTime(t.getFechaInicio().toLocalTime());
+                            vm.setearMutableFecha(dateAndHour);
+                        } catch (Exception e){
+                            e.printStackTrace();
+                            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     @Override
@@ -120,9 +128,6 @@ public class AltaTurnosFragment extends Fragment {
         vm.getMHoraFin().observe(getViewLifecycleOwner(), new Observer<ArrayList<String>>() {
             @Override
             public void onChanged(ArrayList<String> localTimes) {
-                for(String s: localTimes){
-                    Log.d("asdfgrwnfg", s);
-                }
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.spinner_item, localTimes);
                 adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
                 binding.spinnerHoraFinAltaTurnos.setAdapter(adapter);
@@ -132,7 +137,7 @@ public class AltaTurnosFragment extends Fragment {
             @Override
             public void onChanged(String mensaje) {
                 new AlertDialog.Builder(getContext())
-                        .setTitle("El monto del total es:")
+                        .setTitle("Reserva:")
                         .setMessage(mensaje)
                         .setNeutralButton("Ok", new DialogInterface.OnClickListener() {
                             @Override
@@ -147,37 +152,17 @@ public class AltaTurnosFragment extends Fragment {
         binding.btnGuardarAltaTurnos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String fecha = (String) binding.spinnerFechaAltaTurnos.getSelectedItem();
-                String horaInicio = (String) binding.spinnerHoraInicioAltaTurnos.getSelectedItem();
-                String horaFin = (String) binding.spinnerHoraFinAltaTurnos.getSelectedItem();
-                vm.btnGuardar(view, fecha, horaInicio, horaFin);
-            }
-        });
-//        binding.ivBtnEditarFechaAltaTurnos.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                DatePickerDialog dpd = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
-//                    @Override
-//                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-//                        binding.etFechaAltaTurnos.setText(year+"-"+(month+1)+"-"+day);
-//                        LocalDateTime fechaElegida = LocalDateTime.of(year, (month+1), day,0,0);
-//                        vm.setearMutableFecha(fechaElegida);
-//                    }
-//                }, LocalDateTime.now().getYear(), LocalDateTime.now().getMonthValue()-1, LocalDateTime.now().getDayOfMonth());
-//                dpd.getDatePicker().setMinDate(System.currentTimeMillis());
-//                dpd.getDatePicker().setMaxDate(LocalDateTime.now().plusDays(3).atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
-//                dpd.show();
-//            }
-//        });
-        binding.spinnerFechaAltaTurnos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
+                DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("EEEE dd/MM yyyy", Locale.forLanguageTag("es"));
+                try {
+                    int year = LocalDate.now().getYear();
+                    LocalDate fecha = LocalDate.parse(binding.spinnerFechaAltaTurnos.getSelectedItem().toString() + " " + year, inputFormatter);
+                    String horaInicio = (String) binding.spinnerHoraInicioAltaTurnos.getSelectedItem();
+                    String horaFin = (String) binding.spinnerHoraFinAltaTurnos.getSelectedItem();
+                    vm.btnGuardar(view, fecha.toString(), horaInicio, horaFin);
+                }catch (Exception e){
+                    Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
+                    Log.d("getContext()", e.getMessage());
+                }
             }
         });
         Bundle b = getArguments();

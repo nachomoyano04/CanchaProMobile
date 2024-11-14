@@ -57,13 +57,17 @@ public class InicioAdapter extends RecyclerView.Adapter<InicioAdapter.ViewHolder
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
                         if(response.isSuccessful()){
-                            Toast.makeText(view.getContext(), response.body(), Toast.LENGTH_SHORT).show();
-                            Navigation.findNavController(view).navigate(R.id.nav_inicio);
+                            if(response.code() == 200){
+                                Toast.makeText(view.getContext(), response.body(), Toast.LENGTH_SHORT).show();
+                                Navigation.findNavController(view).navigate(R.id.nav_inicio);
+                            }else{
+                                Toast.makeText(view.getContext(), "Ya no se puede cancelar", Toast.LENGTH_SHORT).show();
+                            }
                         }else{
                             if(response.code() != 401){
                                 try {
                                     Log.d("errorCancelarTurno", response.errorBody().string());
-                                    Toast.makeText(view.getContext(), response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(view.getContext(), "Bad request", Toast.LENGTH_SHORT).show();
                                 } catch (IOException e) {
                                     throw new RuntimeException(e);
                                 }

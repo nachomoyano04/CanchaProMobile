@@ -134,7 +134,7 @@ public class ApiCliente {
 
         //Obtener horarios de fin posibles a partir de una hora de inicio en una fecha y cancha determinadas
         @GET("horarios/horariosfin/{idCancha}")
-        Call<ArrayList<String>> horariosfin(@Header("Authorization") String token, @Path("idCancha") int idCancha, @Query("fecha") String fecha, @Query("horaInicio") String horaInicio);
+        Call<ArrayList<String>> horariosfin(@Header("Authorization") String token, @Path("idCancha") int idCancha, @Query("fecha") String fecha, @Query("horaInicio") String horaInicio, @Query("editar") Boolean editar, @Query("idTurno") int idTurno);
 
         //Nuevo turno
         @FormUrlEncoded
@@ -149,5 +149,10 @@ public class ApiCliente {
         @FormUrlEncoded
         @PATCH("turno/comentario/{idTurno}")
         Call<String> nuevoComentario(@Header("Authorization") String token, @Path("idTurno") int idTurno, @Field("calificacion") int calificacion, @Field("comentario") String comentario);
+
+        //Editar turno
+        @FormUrlEncoded
+        @PATCH("turno/editar/{idTurno}")
+        Call<String> editarTurno(@Header("Authorization") String token, @Path("idTurno") int idTurno, @Field("horaInicio") LocalDateTime horaInicio, @Field("horaFin") LocalDateTime horaFin);
     }
 }

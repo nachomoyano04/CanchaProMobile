@@ -89,6 +89,7 @@ public class AltaTurnosViewModel extends AndroidViewModel {
             mBooleano.setValue(editar);
         }
         if(t != null){
+            Log.d("asdasd", t.toString());
             mTurno.postValue(t);
         }else if(c != null){
             Turno turno = new Turno(0, c.getId(), c, 0, null, 0, null, LocalDateTime.now(), LocalDateTime.now(), null, 0, null, 1);
@@ -133,7 +134,7 @@ public class AltaTurnosViewModel extends AndroidViewModel {
     public void setMutableHoraFin(LocalTime horaInicio) {
         Turno t = mTurno.getValue();
         ApiCliente.CanchaProService api = ApiCliente.getApiCanchaPro(context);
-        api.horariosfin(ApiCliente.getToken(context), t.getCanchaId(), t.getFechaInicio().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME), horaInicio.toString()).enqueue(new Callback<ArrayList<String>>() {
+        api.horariosfin(ApiCliente.getToken(context), t.getCanchaId(), mFecha.getValue().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME), horaInicio.toString(), mBooleano.getValue(), t.getId()).enqueue(new Callback<ArrayList<String>>() {
             @Override
             public void onResponse(Call<ArrayList<String>> call, Response<ArrayList<String>> response) {
                 if (response.isSuccessful()){
@@ -165,7 +166,30 @@ public class AltaTurnosViewModel extends AndroidViewModel {
         LocalDateTime fechaHoraInicio = LocalDateTime.of(LocalDate.parse(fecha), LocalTime.parse(horaInicio));
         LocalDateTime fechaHoraFin = LocalDateTime.of(LocalDate.parse(fecha), LocalTime.parse(horaFin));
         if(mBooleano.getValue()){
-            Toast.makeText(context, "Editando", Toast.LENGTH_SHORT).show();
+            api.editarTurno(ApiCliente.getToken(context), turno.getId(), fechaHoraInicio, fechaHoraFin).enqueue(new Callback<String>() {
+                @Override
+                public void onResponse(Call<String> call, Response<String> response) {
+                    if(response.isSuccessful()){
+                        Toast.makeText(context, response.body(), Toast.LENGTH_SHORT).show();
+                        Navigation.findNavController(view).navigate(R.id.nav_inicio);
+                    }else{
+                        if(response.code() != 401){
+                            try {
+                                Log.d("dasdas", response.errorBody().string());
+                                Toast.makeText(context, response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<String> call, Throwable throwable) {
+                    Log.d("asdeaujfge", throwable.getMessage());
+                    Toast.makeText(context, throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
         }else{
             api.nuevoTurno(ApiCliente.getToken(context), turno.getCanchaId(), fechaHoraInicio, fechaHoraFin, "Transferencia").enqueue(new Callback<String>() {
                 @Override
