@@ -15,11 +15,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 
 import com.nachomoyano04.canchapro.R;
 import com.nachomoyano04.canchapro.databinding.FragmentHistorialTurnosBinding;
 import com.nachomoyano04.canchapro.models.Turno;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class HistorialTurnosFragment extends Fragment {
@@ -45,7 +48,35 @@ public class HistorialTurnosFragment extends Fragment {
                 binding.listaHistorialTurnos.setAdapter(adapter);
             }
         });
-        vm.llenarLista();
+        vm.getMMensaje().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                int visibilidad = vm.getVisibilidadAPartirDeBoolean(aBoolean);
+                binding.tvMensajeErrorFragmentHistorialSin.setVisibility(visibilidad);
+            }
+        });
+        vm.getMSpinnerFiltro().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer numero) {
+                vm.llenarLista(numero);
+            }
+        });
+        ArrayList<String> strings = new ArrayList<>();
+        strings.add("Completado");
+        strings.add("Cancelado");
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.spinner_item, strings);
+        adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
+        binding.spinnerHistorialTurnosFiltro.setAdapter(adapter);
+        binding.spinnerHistorialTurnosFiltro.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                vm.setearFiltro(adapterView.getSelectedItem().toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
         return binding.getRoot();
     }
 

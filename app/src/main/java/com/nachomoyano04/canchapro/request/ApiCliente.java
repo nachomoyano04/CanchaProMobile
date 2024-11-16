@@ -33,9 +33,9 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public class ApiCliente {
-    public static final String URL_BASE = "http://192.168.1.4:5021/api/";
-    public static final String URLIMAGENCANCHA = "http://192.168.1.4:5021/img/cancha/";
-    public static final String URLIMAGENUSUARIO = "http://192.168.1.4:5021/img/usuario/";
+    public static final String URL_BASE = "http://192.168.1.3:5021/api/";
+    public static final String URLIMAGENCANCHA = "http://192.168.1.3:5021/img/cancha/";
+    public static final String URLIMAGENUSUARIO = "http://192.168.1.3:5021/img/usuario/";
     public static SharedPreferences sp;
 
     public static SharedPreferences conectar(Context context){
@@ -158,5 +158,9 @@ public class ApiCliente {
         @FormUrlEncoded
         @PATCH("turno/editar/{idTurno}")
         Call<String> editarTurno(@Header("Authorization") String token, @Path("idTurno") int idTurno, @Field("horaInicio") LocalDateTime horaInicio, @Field("horaFin") LocalDateTime horaFin);
+
+        //Turnos por usuario y estado del turno
+        @GET("turno/estado/{estado}")
+        Call<ArrayList<Turno>> turnosPorUsuarioYEstado(@Header("Authorization")String token, @Path("estado") int estado);
     }
 }

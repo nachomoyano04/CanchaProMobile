@@ -2,7 +2,9 @@ package com.nachomoyano04.canchapro.ui.inicio;
 
 import android.app.Application;
 import android.content.Context;
+import android.opengl.Visibility;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -27,6 +29,7 @@ public class InicioViewModel extends AndroidViewModel {
     private Context context;
     private MutableLiveData<ArrayList<Turno>> mListaTurnos;
     private MutableLiveData<Usuario> mUsuario;
+    private MutableLiveData<Boolean> mMensajeSinTurno;
 
     public InicioViewModel(@NonNull Application application) {
         super(application);
@@ -47,16 +50,24 @@ public class InicioViewModel extends AndroidViewModel {
         return mUsuario;
     }
 
+    public LiveData<Boolean> getMMensajeSinTurno(){
+        if(mMensajeSinTurno == null){
+            mMensajeSinTurno = new MutableLiveData<>();
+        }
+        return mMensajeSinTurno;
+    }
+
     public void llenarLista(){
         ApiCliente.CanchaProService api = ApiCliente.getApiCanchaPro(context);
-        api.turnosPorUsuario(ApiCliente.getToken(context)).enqueue(new Callback<ArrayList<Turno>>() {
+        api.misProximosTurnos(ApiCliente.getToken(context)).enqueue(new Callback<ArrayList<Turno>>() {
             @Override
             public void onResponse(Call<ArrayList<Turno>> call, Response<ArrayList<Turno>> response) {
                 if(response.isSuccessful()){
-                    if(response.body() != null){
-                        mListaTurnos.postValue(response.body());
+                    if(response.code() == 204){
+                        mMensajeSinTurno.setValue(true);
                     }else{
-                        mListaTurnos.postValue(new ArrayList<>());
+                        mListaTurnos.postValue(response.body());
+                        mMensajeSinTurno.setValue(false);
                     }
                 }else{
                     if(response.code() != 401){
@@ -103,5 +114,12 @@ public class InicioViewModel extends AndroidViewModel {
                 Toast.makeText(context, throwable.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public int getVisibilidadAPartirDeBoolean(Boolean b){
+        if(b != null && b){
+            return View.VISIBLE;
+        }
+        return View.INVISIBLE;
     }
 }

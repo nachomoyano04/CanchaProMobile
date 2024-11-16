@@ -64,6 +64,13 @@ public class InicioFragment extends Fragment {
                         .into(binding.ivAvatarFragmentInicio);
             }
         });
+        vm.getMMensajeSinTurno().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                int visibilidad = vm.getVisibilidadAPartirDeBoolean(aBoolean);
+                binding.tvMensajeErrorFragmentInicioSin.setVisibility(visibilidad);
+            }
+        });
         binding.btnAniadirTurnoInicio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
