@@ -18,6 +18,8 @@ import com.nachomoyano04.canchapro.models.Turno;
 import com.nachomoyano04.canchapro.request.ApiCliente;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -55,7 +57,8 @@ public class HistorialTurnoAdapter extends RecyclerView.Adapter<HistorialTurnoAd
             holder.horaInicio2.setText(t.getFechaInicio().toLocalTime().toString());
             holder.horaFin2.setText(t.getFechaFin().toLocalTime().toString());
             holder.cancha2.setText(t.getCancha().getTipo().getNombre());
-            holder.precio2.setText("$"+t.getPago().getMontoTotal());
+            NumberFormat moneda = NumberFormat.getCurrencyInstance();
+            holder.precio2.setText(moneda.format(t.getPago().getMontoTotal()));
             holder.btnEditarYGuardarComentario.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

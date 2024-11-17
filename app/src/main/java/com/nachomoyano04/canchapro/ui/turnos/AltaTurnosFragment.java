@@ -65,10 +65,7 @@ public class AltaTurnosFragment extends Fragment {
             public void onChanged(Turno t) {
                 binding.tvCanchaAltaTurnos.setText(t.getCancha().getTipo().getNombre());
                 LocalDate fechaDeHoy = t.getFechaInicio().toLocalDate();
-                ArrayList<String> fechas = new ArrayList<>();
-                fechas.add(DateTimeFormatter.ofPattern("EEEE dd/MM", Locale.forLanguageTag("es")).format(fechaDeHoy));
-                fechas.add(DateTimeFormatter.ofPattern("EEEE dd/MM", Locale.forLanguageTag("es")).format(fechaDeHoy.plusDays(1)));
-                fechas.add(DateTimeFormatter.ofPattern("EEEE dd/MM", Locale.forLanguageTag("es")).format(fechaDeHoy.plusDays(2)));
+                ArrayList<String> fechas = vm.getArrayListDeFechas(fechaDeHoy);
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.spinner_item, fechas);
                 adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
                 binding.spinnerFechaAltaTurnos.setAdapter(adapter);

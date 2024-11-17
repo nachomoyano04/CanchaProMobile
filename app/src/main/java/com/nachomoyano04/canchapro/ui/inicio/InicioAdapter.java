@@ -21,6 +21,7 @@ import com.nachomoyano04.canchapro.models.Turno;
 import com.nachomoyano04.canchapro.request.ApiCliente;
 
 import java.io.IOException;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -51,7 +52,8 @@ public class InicioAdapter extends RecyclerView.Adapter<InicioAdapter.ViewHolder
         holder.horaInicio.setText(t.getFechaInicio().toLocalTime().toString());
         holder.horaFin.setText(t.getFechaFin().toLocalTime().toString());
         holder.cancha.setText(t.getCancha().getTipo().getNombre());
-        holder.precio.setText("$"+t.getCancha().getPrecioPorHora());
+        NumberFormat moneda = NumberFormat.getCurrencyInstance();
+        holder.precio.setText(moneda.format(t.getPago().getMontoTotal()));
         holder.btnCancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

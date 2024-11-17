@@ -29,6 +29,7 @@ import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -234,5 +235,20 @@ public class AltaTurnosViewModel extends AndroidViewModel {
             return View.VISIBLE;
         }
         return View.INVISIBLE;
+    }
+
+    public ArrayList<String> getArrayListDeFechas(LocalDate fechaDeHoy) {
+        ArrayList<String> fechas = new ArrayList<>();
+        if(fechaDeHoy.equals(LocalDate.now())){
+            fechas.add(DateTimeFormatter.ofPattern("EEEE dd/MM", Locale.forLanguageTag("es")).format(fechaDeHoy));
+            fechas.add(DateTimeFormatter.ofPattern("EEEE dd/MM", Locale.forLanguageTag("es")).format(fechaDeHoy.plusDays(1)));
+            fechas.add(DateTimeFormatter.ofPattern("EEEE dd/MM", Locale.forLanguageTag("es")).format(fechaDeHoy.plusDays(2)));
+        }else{
+            int diferenciaDeDias = fechaDeHoy.getDayOfYear() - LocalDate.now().getDayOfYear();
+            for(int i = 0; i <= diferenciaDeDias; i++){
+                fechas.add(DateTimeFormatter.ofPattern("EEEE dd/MM", Locale.forLanguageTag("es")).format(fechaDeHoy.minusDays(i)));
+            }
+        }
+        return fechas;
     }
 }

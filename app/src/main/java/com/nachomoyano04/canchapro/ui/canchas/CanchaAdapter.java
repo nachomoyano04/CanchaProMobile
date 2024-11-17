@@ -17,6 +17,7 @@ import com.nachomoyano04.canchapro.R;
 import com.nachomoyano04.canchapro.models.Cancha;
 import com.nachomoyano04.canchapro.request.ApiCliente;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 public class CanchaAdapter extends RecyclerView.Adapter<CanchaAdapter.CanchaViewHolder> {
@@ -47,7 +48,8 @@ public class CanchaAdapter extends RecyclerView.Adapter<CanchaAdapter.CanchaView
                     .into(holder.imagen);
             holder.tipoPiso.setText(c.getTipo().getTipoDePiso());
             holder.capacidad.setText(c.getTipo().getCapacidadTotal()+"");
-            holder.precio.setText("$"+c.getPrecioPorHora());
+            NumberFormat moneda = NumberFormat.getCurrencyInstance();
+            holder.precio.setText(moneda.format(c.getPrecioPorHora()));
             holder.descripcion.setText(c.getDescripcion());
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
