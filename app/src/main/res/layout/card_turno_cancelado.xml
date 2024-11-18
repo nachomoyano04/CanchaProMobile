@@ -197,7 +197,7 @@
                 android:id="@+id/textView34Cancelados"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Devolución"
+                android:text="Reintegro"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
 
@@ -208,6 +208,37 @@
                 android:layout_weight="1"
                 android:paddingRight="10sp"
                 android:text="$xxxx.xx"
+                android:textAlignment="textEnd"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/lLCancelado7"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="24dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lLCancelado6">
+
+            <TextView
+                android:id="@+id/textView35Cancelados"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fecha cancelación"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tvFechaCancelacionCardMisTurnosCancelados"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingRight="10sp"
+                android:text="TextView"
                 android:textAlignment="textEnd"
                 android:textColor="@color/black"
                 android:textSize="20sp" />

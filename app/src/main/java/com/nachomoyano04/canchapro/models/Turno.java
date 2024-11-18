@@ -23,11 +23,13 @@ public class Turno implements Serializable {
     private int calificacion;
     @JsonAdapter(LocalDateTimeAdapter.class)
     private LocalDateTime fechaComentario;
+    @JsonAdapter(LocalDateTimeAdapter.class)
+    private LocalDateTime fechaCancelacion;
     private int estado;
 
     public Turno() {}
 
-    public Turno(int id, int canchaId, Cancha cancha, int usuarioId, Usuario usuario, int pagoId, Pago pago, LocalDateTime fechaInicio, LocalDateTime fechaFin, String comentario, int calificacion, LocalDateTime fechaComentario, int estado) {
+    public Turno(int id, int canchaId, Cancha cancha, int usuarioId, Usuario usuario, int pagoId, Pago pago, LocalDateTime fechaInicio, LocalDateTime fechaFin, String comentario, int calificacion, LocalDateTime fechaComentario, LocalDateTime fechaCancelacion, int estado) {
         this.id = id;
         this.canchaId = canchaId;
         this.cancha = cancha;
@@ -40,6 +42,7 @@ public class Turno implements Serializable {
         this.comentario = comentario;
         this.calificacion = calificacion;
         this.fechaComentario = fechaComentario;
+        this.fechaCancelacion = fechaCancelacion;
         this.estado = estado;
     }
 
@@ -137,6 +140,14 @@ public class Turno implements Serializable {
 
     public void setFechaComentario(LocalDateTime fechaComentario) {
         this.fechaComentario = fechaComentario;
+    }
+
+    public LocalDateTime getFechaCancelacion() {
+        return fechaCancelacion;
+    }
+
+    public void setFechaCancelacion(LocalDateTime fechaCancelacion) {
+        this.fechaCancelacion = fechaCancelacion;
     }
 
     public int getEstado() {

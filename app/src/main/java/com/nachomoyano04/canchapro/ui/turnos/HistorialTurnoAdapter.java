@@ -130,7 +130,12 @@ public class HistorialTurnoAdapter extends RecyclerView.Adapter<HistorialTurnoAd
             holder.horaInicio3.setText(t.getFechaInicio().toLocalTime().toString());
             holder.horaFin3.setText(t.getFechaFin().toLocalTime().toString());
             holder.cancha3.setText(t.getCancha().getTipo().getNombre());
-            holder.precio3.setText("$"+t.getPago().getMontoTotal());
+            NumberFormat moneda = NumberFormat.getCurrencyInstance();
+            holder.precio3.setText(moneda.format(t.getPago().getMontoTotal()));
+            if(t.getPago().getMontoReintegroTurnoCancelado() >= 0){
+                holder.reintegro3.setText(moneda.format(t.getPago().getMontoReintegroTurnoCancelado()));
+            }
+            holder.fechaCancelacion3.setText(t.getFechaCancelacion().toLocalDate().toString());
         }
     }
 
@@ -146,7 +151,7 @@ public class HistorialTurnoAdapter extends RecyclerView.Adapter<HistorialTurnoAd
 
     public class ViewHolderHistorialTurnoAdapter extends RecyclerView.ViewHolder{
 
-        private TextView fecha2, horaInicio2, horaFin2, cancha2, precio2, fecha3, horaInicio3, horaFin3, cancha3, precio3;
+        private TextView fecha2, horaInicio2, horaFin2, cancha2, precio2, fecha3, horaInicio3, horaFin3, cancha3, precio3, reintegro3, fechaCancelacion3;
         private Button btnEditarYGuardarComentario, btnCancelarEditarComentario;
         private RatingBar ratingCardTurnoCompletado;
         private EditText etComentarioTurnoCompletado;
@@ -168,6 +173,8 @@ public class HistorialTurnoAdapter extends RecyclerView.Adapter<HistorialTurnoAd
             horaFin3 = itemView.findViewById(R.id.tvHoraFinCardMisTurnosCancelados);
             cancha3 = itemView.findViewById(R.id.tvCanchaCardMisTurnosCancelados);
             precio3 = itemView.findViewById(R.id.tvPrecioCardMisTurnosCancelados);
+            reintegro3 = itemView.findViewById(R.id.tvMontoDevolucionCardMisTurnosCancelados);
+            fechaCancelacion3 = itemView.findViewById(R.id.tvFechaCancelacionCardMisTurnosCancelados);
         }
     }
 

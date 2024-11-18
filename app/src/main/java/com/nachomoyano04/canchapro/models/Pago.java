@@ -16,9 +16,10 @@ public class Pago {
     private String metodoPagoReserva;
     private String metodoPagoTotal;
     private String comprobanteReserva;
+    private double montoReintegroTurnoCancelado;
     private int estado;
 
-    public Pago(int id, double montoReserva, double montoTotal, LocalDateTime fechaPagoReserva, LocalDateTime fechaPagoTotal, String metodoPagoReserva, String metodoPagoTotal, String comprobanteReserva, int estado) {
+    public Pago(int id, double montoReserva, double montoTotal, LocalDateTime fechaPagoReserva, LocalDateTime fechaPagoTotal, String metodoPagoReserva, String metodoPagoTotal, String comprobanteReserva, double montoReintegroTurnoCancelado, int estado) {
         this.id = id;
         this.montoReserva = montoReserva;
         this.montoTotal = montoTotal;
@@ -27,6 +28,7 @@ public class Pago {
         this.metodoPagoReserva = metodoPagoReserva;
         this.metodoPagoTotal = metodoPagoTotal;
         this.comprobanteReserva = comprobanteReserva;
+        this.montoReintegroTurnoCancelado = montoReintegroTurnoCancelado;
         this.estado = estado;
     }
 
@@ -92,6 +94,14 @@ public class Pago {
 
     public void setComprobanteReserva(String comprobanteReserva) {
         this.comprobanteReserva = comprobanteReserva;
+    }
+
+    public double getMontoReintegroTurnoCancelado() {
+        return montoReintegroTurnoCancelado;
+    }
+
+    public void setMontoReintegroTurnoCancelado(double montoReintegroTurnoCancelado) {
+        this.montoReintegroTurnoCancelado = montoReintegroTurnoCancelado;
     }
 
     public int getEstado() {

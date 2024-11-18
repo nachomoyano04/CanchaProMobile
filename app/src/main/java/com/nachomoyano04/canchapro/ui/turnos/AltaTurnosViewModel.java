@@ -101,7 +101,7 @@ public class AltaTurnosViewModel extends AndroidViewModel {
             Log.d("asdasd", t.toString());
             mTurno.postValue(t);
         }else if(c != null){
-            Turno turno = new Turno(0, c.getId(), c, 0, null, 0, null, LocalDateTime.now(), LocalDateTime.now(), null, 0, null, 1);
+            Turno turno = new Turno(0, c.getId(), c, 0, null, 0, null, LocalDateTime.now(), LocalDateTime.now(), null, 0, null, null, 1);
             mTurno.postValue(turno);
         }else{
             Toast.makeText(context, "Todo null", Toast.LENGTH_SHORT).show();

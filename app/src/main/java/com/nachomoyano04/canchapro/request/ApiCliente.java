@@ -6,12 +6,10 @@ import android.content.SharedPreferences;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.nachomoyano04.canchapro.models.Cancha;
-import com.nachomoyano04.canchapro.models.Horarios;
 import com.nachomoyano04.canchapro.models.Turno;
 import com.nachomoyano04.canchapro.models.Usuario;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 
 import okhttp3.MultipartBody;
@@ -126,7 +124,7 @@ public class ApiCliente {
 
         //Cancelar Turno
         @PATCH("turno/cancelar/{idTurno}")
-        Call<String> cancelarTurno(@Header("Authorization") String token, @Path("idTurno") int idTurno);
+        Call<String> cancelarTurno(@Header("Authorization") String token, @Path("idTurno") int idTurno, @Query("fechaCancelacion") LocalDateTime fechaCancelacion, @Query("montoReintegro") String montoReintegro);
 
         //Obtener horarios de inicio posibles en una fecha y cancha determinadas
         @GET("horarios/horariosinicio/{idCancha}")
@@ -162,5 +160,9 @@ public class ApiCliente {
         //Turnos por usuario y estado del turno
         @GET("turno/estado/{estado}")
         Call<ArrayList<Turno>> turnosPorUsuarioYEstado(@Header("Authorization")String token, @Path("estado") int estado);
+
+        //Obtener politica de cancelación de turnos
+        @GET("turno/cancelar/{idTurno}")
+        Call<ArrayList<String>> getPoliticasDeCancelacion(@Header("Authorization")String token, @Path("idTurno") int idTurno, @Query("fechaCancelacion") LocalDateTime fechaCancelacion);
     }
 }
