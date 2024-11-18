@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F5F5F5"
     tools:context=".ui.canchas.ListadoFragment">
 
     <TextView
         android:id="@+id/textView22"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:text="Seleccione una cancha"
         android:textColor="@color/black"
         android:textSize="34sp"
@@ -19,10 +21,10 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listaCanchas"
-        android:layout_width="409dp"
-        android:layout_height="684dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginBottom="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
