@@ -107,12 +107,6 @@ public class PerfilFragment extends Fragment {
                 vm.cancelarEditar();
             }
         });
-        binding.btnVerHistorialDeTurnos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.nav_historial_turnos);
-            }
-        });
         vm.getUsuario();
         return binding.getRoot();
     }

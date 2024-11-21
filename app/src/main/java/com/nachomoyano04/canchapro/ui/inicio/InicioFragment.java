@@ -78,6 +78,12 @@ public class InicioFragment extends Fragment {
                 Navigation.findNavController(view).navigate(R.id.nav_canchas, null, new NavOptions.Builder().setPopUpTo(R.id.nav_inicio,true).build());
             }
         });
+        binding.btnVerHistorialTurnosFragmentInicio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.nav_historial_turnos);
+            }
+        });
         vm.llenarLista();
         vm.cargarDatosUsuario();
         return binding.getRoot();
