@@ -71,12 +71,7 @@ public class HistorialTurnoAdapter extends RecyclerView.Adapter<HistorialTurnoAd
                     }else{
                         int calificacion = (int) holder.ratingCardTurnoCompletado.getRating();
                         String comentario = holder.etComentarioTurnoCompletado.getText().toString();
-                        Log.d("Casnjfger", comentario);
-                        Log.d("iaguoej", calificacion+"");
-                        if(calificacion != t.getCalificacion() || !comentario.equals(t.getComentario())){
-                            if(comentario.isEmpty()){
-                                comentario = "";
-                            }
+                        if((calificacion != t.getCalificacion() && calificacion != 0) || (!comentario.isEmpty() && !comentario.equals(t.getComentario()))){
                             api.nuevoComentario(ApiCliente.getToken(li.getContext()), t.getId(), calificacion, comentario).enqueue(new Callback<String>() {
                                 @Override
                                 public void onResponse(Call<String> call, Response<String> response) {
