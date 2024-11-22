@@ -71,7 +71,7 @@ public class EditarAvatarViewModel extends AndroidViewModel {
 
     public void guardar(){
         String img = mAvatar.getValue();
-        if(img != null && !img.isEmpty()){
+        if(img != null && !img.isEmpty() && !img.startsWith("http")){
             try {
                 InputStream inputStream = context.getContentResolver().openInputStream(Uri.parse(img));
                 String fileName = "userAvatar"+System.currentTimeMillis()+".jpg";

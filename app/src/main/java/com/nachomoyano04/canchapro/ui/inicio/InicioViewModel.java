@@ -64,6 +64,7 @@ public class InicioViewModel extends AndroidViewModel {
             public void onResponse(Call<ArrayList<Turno>> call, Response<ArrayList<Turno>> response) {
                 if(response.isSuccessful()){
                     if(response.code() == 204){
+                        mListaTurnos.postValue(new ArrayList<>());
                         mMensajeSinTurno.setValue(true);
                     }else{
                         mListaTurnos.postValue(response.body());

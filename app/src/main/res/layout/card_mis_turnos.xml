@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
-    app:cardBackgroundColor="#FFF9C4"
+    app:cardBackgroundColor="#EFEFEF"
     app:cardCornerRadius="20dp"
-    app:cardElevation="10dp"
+    app:cardElevation="5dp"
     app:contentPadding="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -184,7 +184,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="10dp"
-            android:backgroundTint="@color/design_default_color_error"
+            android:backgroundTint="#D32F2F"
             android:text="Cancelar Turno"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
