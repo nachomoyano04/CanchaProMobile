@@ -1,8 +1,13 @@
 package com.nachomoyano04.canchapro.ui.inicio;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,11 +24,13 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.nachomoyano04.canchapro.MainActivity;
 import com.nachomoyano04.canchapro.R;
 import com.nachomoyano04.canchapro.databinding.FragmentInicioBinding;
 import com.nachomoyano04.canchapro.models.Turno;
 import com.nachomoyano04.canchapro.models.Usuario;
 import com.nachomoyano04.canchapro.request.ApiCliente;
+import com.nachomoyano04.canchapro.ui.login.LoginActivity;
 
 import java.util.ArrayList;
 
@@ -86,6 +93,13 @@ public class InicioFragment extends Fragment {
         });
         vm.llenarLista();
         vm.cargarDatosUsuario();
+        //cuando toque el boton para volver atras pregunte si quiere desloguearse
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                alertCerrarSesion();
+            }
+        });
         return binding.getRoot();
     }
 
@@ -99,6 +113,43 @@ public class InicioFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         vm = new ViewModelProvider(this).get(InicioViewModel.class);
+    }
+
+    public void alertCerrarSesion(){
+        new AlertDialog.Builder(requireContext())
+                .setMessage("Estas seguro que desea salir?")
+                .setTitle("Logout")
+                .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        SharedPreferences shared = requireContext().getSharedPreferences("tokenUsuario", 0);
+                        SharedPreferences.Editor editor = shared.edit();
+                        editor.remove("token");
+                        editor.apply();
+                        Intent intent = new Intent(requireContext(), LoginActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                })
+                .show();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        SharedPreferences shared = getContext().getSharedPreferences("tokenUsuario", 0);
+        String token = shared.getString("token",null);
+        if(token == null){
+            Intent i = new Intent(getContext(), LoginActivity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            getContext().startActivity(i);
+        }
     }
 
 }

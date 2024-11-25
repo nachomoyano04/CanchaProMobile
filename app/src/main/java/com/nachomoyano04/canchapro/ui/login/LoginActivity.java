@@ -3,6 +3,7 @@ package com.nachomoyano04.canchapro.ui.login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -44,5 +45,10 @@ public class LoginActivity extends AppCompatActivity {
                 vm.registrarUsuario();
             }
         });
+        Intent i = getIntent();
+        String mensaje = i.getStringExtra("mensaje");
+        if(mensaje != null){
+            Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
+        }
     }
 }
