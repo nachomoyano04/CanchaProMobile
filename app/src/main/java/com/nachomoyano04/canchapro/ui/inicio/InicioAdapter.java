@@ -1,6 +1,7 @@
 package com.nachomoyano04.canchapro.ui.inicio;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -148,10 +149,16 @@ public class InicioAdapter extends RecyclerView.Adapter<InicioAdapter.ViewHolder
         holder.btnEditarMisTurnos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bundle b = new Bundle();
-                b.putSerializable("turno", t);
-                b.putSerializable("editar", true);
-                Navigation.findNavController(view).navigate(R.id.nav_alta_update_turno, b);
+                //SOLO QUE PUEDA EDITAR SI FALTAN MAS DE TRES HORAS
+                Context context = holder.itemView.getContext();
+                if(LocalDateTime.now().plusHours(3).isBefore(t.getFechaInicio())){
+                    Bundle b = new Bundle();
+                    b.putSerializable("turno", t);
+                    b.putSerializable("editar", true);
+                    Navigation.findNavController(view).navigate(R.id.nav_alta_update_turno, b);
+                }else{
+                    Toast.makeText(context, "Ya no queda tiempo para editar", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

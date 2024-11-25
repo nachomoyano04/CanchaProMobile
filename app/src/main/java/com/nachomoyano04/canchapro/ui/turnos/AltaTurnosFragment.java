@@ -189,5 +189,4 @@ public class AltaTurnosFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         vm = new ViewModelProvider(this).get(AltaTurnosViewModel.class);
     }
-
 }

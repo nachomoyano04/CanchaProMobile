@@ -1,11 +1,14 @@
 package com.nachomoyano04.canchapro.ui.canchas;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
@@ -17,8 +20,13 @@ import com.nachomoyano04.canchapro.R;
 import com.nachomoyano04.canchapro.models.Cancha;
 import com.nachomoyano04.canchapro.request.ApiCliente;
 
+import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CanchaAdapter extends RecyclerView.Adapter<CanchaAdapter.CanchaViewHolder> {
     private ArrayList<Cancha> listaCanchas = new ArrayList<Cancha>();
@@ -39,6 +47,8 @@ public class CanchaAdapter extends RecyclerView.Adapter<CanchaAdapter.CanchaView
     @Override
     public void onBindViewHolder(@NonNull CanchaViewHolder holder, int position) {
         if(getItemCount() > 0){
+            Context contexto = holder.itemView.getContext();
+            ApiCliente.CanchaProService api = ApiCliente.getApiCanchaPro(contexto);
             Cancha c = listaCanchas.get(position);
             holder.titulo.setText(c.getTipo().getNombre());
             Glide.with(holder.itemView)
@@ -51,6 +61,28 @@ public class CanchaAdapter extends RecyclerView.Adapter<CanchaAdapter.CanchaView
             NumberFormat moneda = NumberFormat.getCurrencyInstance();
             holder.precio.setText(moneda.format(c.getPrecioPorHora()));
             holder.descripcion.setText(c.getDescripcion());
+            api.getPorcentajeCalificacionCancha(ApiCliente.getToken(contexto), c.getId()).enqueue(new Callback<String>() {
+                @Override
+                public void onResponse(Call<String> call, Response<String> response) {
+                    if(response.isSuccessful()){
+                        holder.porcentaje.setText(response.body());
+                        holder.porcentaje.setCompoundDrawablesWithIntrinsicBounds(R.drawable.star, 0, 0,0);
+                    }else{
+                        try {
+                            Toast.makeText(contexto, "Error en la respuesta", Toast.LENGTH_SHORT).show();
+                            Log.d("geugb", response.errorBody().string());
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<String> call, Throwable throwable) {
+                    Toast.makeText(contexto, "error en el servidor", Toast.LENGTH_SHORT).show();
+                    Log.d("hugea", throwable.getMessage());
+                }
+            });
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -68,7 +100,7 @@ public class CanchaAdapter extends RecyclerView.Adapter<CanchaAdapter.CanchaView
     }
 
     public class CanchaViewHolder extends RecyclerView.ViewHolder {
-        private TextView titulo, tipoPiso, capacidad, precio, descripcion;
+        private TextView titulo, tipoPiso, capacidad, precio, descripcion, porcentaje;
         private ImageView imagen;
 
         public CanchaViewHolder(@NonNull View itemView) {
@@ -79,6 +111,7 @@ public class CanchaAdapter extends RecyclerView.Adapter<CanchaAdapter.CanchaView
             precio = itemView.findViewById(R.id.tvCardCanchaPrecio);
             descripcion = itemView.findViewById(R.id.tvCardCanchaDescripcion);
             imagen = itemView.findViewById(R.id.ivCardCancha);
+            porcentaje = itemView.findViewById(R.id.tvPorcentajeCalificacionCardCancha);
         }
     }
 }

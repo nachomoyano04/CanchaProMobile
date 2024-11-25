@@ -184,7 +184,8 @@ public class AltaTurnosViewModel extends AndroidViewModel {
                 @Override
                 public void onResponse(Call<String> call, Response<String> response) {
                     if(response.isSuccessful()){
-                        Toast.makeText(context, response.body(), Toast.LENGTH_SHORT).show();
+                        mRespuestaAltaYEditar.postValue(response.body());
+//                        Toast.makeText(context, response.body(), Toast.LENGTH_SHORT).show();
                         Navigation.findNavController(view).navigate(R.id.nav_inicio);
                     }else{
                         if(response.code() != 401){

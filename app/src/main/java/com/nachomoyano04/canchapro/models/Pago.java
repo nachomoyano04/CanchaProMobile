@@ -17,9 +17,10 @@ public class Pago {
     private String metodoPagoTotal;
     private String comprobanteReserva;
     private double montoReintegroTurnoCancelado;
+    private double creditos;
     private int estado;
 
-    public Pago(int id, double montoReserva, double montoTotal, LocalDateTime fechaPagoReserva, LocalDateTime fechaPagoTotal, String metodoPagoReserva, String metodoPagoTotal, String comprobanteReserva, double montoReintegroTurnoCancelado, int estado) {
+    public Pago(int id, double montoReserva, double montoTotal, LocalDateTime fechaPagoReserva, LocalDateTime fechaPagoTotal, String metodoPagoReserva, String metodoPagoTotal, String comprobanteReserva, double montoReintegroTurnoCancelado, double creditos, int estado) {
         this.id = id;
         this.montoReserva = montoReserva;
         this.montoTotal = montoTotal;
@@ -29,6 +30,7 @@ public class Pago {
         this.metodoPagoTotal = metodoPagoTotal;
         this.comprobanteReserva = comprobanteReserva;
         this.montoReintegroTurnoCancelado = montoReintegroTurnoCancelado;
+        this.creditos = creditos;
         this.estado = estado;
     }
 
@@ -102,6 +104,14 @@ public class Pago {
 
     public void setMontoReintegroTurnoCancelado(double montoReintegroTurnoCancelado) {
         this.montoReintegroTurnoCancelado = montoReintegroTurnoCancelado;
+    }
+
+    public double getCreditos() {
+        return creditos;
+    }
+
+    public void setCreditos(double creditos) {
+        this.creditos = creditos;
     }
 
     public int getEstado() {

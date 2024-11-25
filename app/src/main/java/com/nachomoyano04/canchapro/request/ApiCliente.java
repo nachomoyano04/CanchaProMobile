@@ -164,5 +164,9 @@ public class ApiCliente {
         //Obtener politica de cancelación de turnos
         @GET("turno/cancelar/{idTurno}")
         Call<ArrayList<String>> getPoliticasDeCancelacion(@Header("Authorization")String token, @Path("idTurno") int idTurno, @Query("fechaCancelacion") LocalDateTime fechaCancelacion);
+
+        //Obtener porcentaje de calificacion para una cancha
+        @GET("cancha/porcentaje/{idCancha}")
+        Call<String> getPorcentajeCalificacionCancha(@Header("Authorization")String token, @Path("idCancha") int idCancha);
     }
 }
