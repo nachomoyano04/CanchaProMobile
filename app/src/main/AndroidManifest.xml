@@ -23,7 +23,7 @@
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
                 <data android:scheme="http"
-                    android:host="192.168.1.11"
+                    android:host="192.168.1.7"
                     android:port="5021"
                     android:pathPrefix="/api/usuario/nuevapassword"/>
 

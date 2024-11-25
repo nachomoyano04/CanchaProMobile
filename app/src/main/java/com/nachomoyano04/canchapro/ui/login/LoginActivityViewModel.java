@@ -60,8 +60,11 @@ public class LoginActivityViewModel extends AndroidViewModel {
         }
     }
 
-    public void recuperarPassword(){
+    public void recuperarPassword(String correo){
         Intent i = new Intent(context, RecuperarPasswordActivity.class);
+        if(!correo.isEmpty()){
+            i.putExtra("correo", correo);
+        }
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(i);
     }

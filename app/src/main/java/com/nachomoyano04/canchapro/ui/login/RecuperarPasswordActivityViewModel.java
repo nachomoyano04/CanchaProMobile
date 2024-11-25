@@ -2,6 +2,7 @@ package com.nachomoyano04.canchapro.ui.login;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,6 +21,7 @@ import retrofit2.Response;
 public class RecuperarPasswordActivityViewModel extends AndroidViewModel {
 
     private MutableLiveData<String> mMensaje;
+    private MutableLiveData<String> mCorreo;
     private Context context;
 
     public RecuperarPasswordActivityViewModel(@NonNull Application application) {
@@ -32,6 +34,13 @@ public class RecuperarPasswordActivityViewModel extends AndroidViewModel {
             mMensaje = new MutableLiveData<>();
         }
         return mMensaje;
+    }
+
+    public LiveData<String> getMCorreo(){
+        if(mCorreo == null){
+            mCorreo = new MutableLiveData<>();
+        }
+        return mCorreo;
     }
 
     public void enviarCorreo(String correo){
@@ -58,6 +67,13 @@ public class RecuperarPasswordActivityViewModel extends AndroidViewModel {
             });
         }else{
             mMensaje.postValue("Ingrese un mail por favor");
+        }
+    }
+
+    public void ponerCorreo(Intent intent) {
+        String correo = intent.getStringExtra("correo");
+        if(correo != null){
+            mCorreo.setValue(correo);
         }
     }
 }

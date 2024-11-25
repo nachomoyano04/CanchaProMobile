@@ -32,11 +32,18 @@ public class RecuperarPasswordActivity extends AppCompatActivity {
                 binding.tvMensajeErrorRecuperaPassword.setText(s);
             }
         });
+        vm.getMCorreo().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                binding.etCorreoRecuperacion.setText(s);
+            }
+        });
         binding.btnEnviarMailRecuperarPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 vm.enviarCorreo(binding.etCorreoRecuperacion.getText().toString());
             }
         });
+        vm.ponerCorreo(getIntent());
     }
 }

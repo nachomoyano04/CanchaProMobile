@@ -36,7 +36,7 @@ public class LoginActivity extends AppCompatActivity {
         binding.btnForgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                vm.recuperarPassword();
+                vm.recuperarPassword(binding.etCorreoLogin.getText().toString());
             }
         });
         binding.btnRegistrarUsuario.setOnClickListener(new View.OnClickListener() {
