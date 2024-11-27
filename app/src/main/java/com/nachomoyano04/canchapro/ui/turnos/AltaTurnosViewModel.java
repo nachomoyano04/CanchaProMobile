@@ -185,13 +185,16 @@ public class AltaTurnosViewModel extends AndroidViewModel {
                 public void onResponse(Call<String> call, Response<String> response) {
                     if(response.isSuccessful()){
                         mRespuestaAltaYEditar.postValue(response.body());
-//                        Toast.makeText(context, response.body(), Toast.LENGTH_SHORT).show();
                         Navigation.findNavController(view).navigate(R.id.nav_inicio);
                     }else{
                         if(response.code() != 401){
                             try {
                                 Log.d("dasdas", response.errorBody().string());
-                                Toast.makeText(context, response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                                if(response.code() == 409){
+                                    Toast.makeText(context, "Ya hay un turno asignado en esos horarios.", Toast.LENGTH_SHORT).show();
+                                }else{
+                                    Toast.makeText(context, response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                                }
                             } catch (IOException e) {
                                 throw new RuntimeException(e);
                             }
@@ -215,7 +218,11 @@ public class AltaTurnosViewModel extends AndroidViewModel {
                         if(response.code() != 401){
                             try {
                                 Log.d("Error nuevo turno", response.errorBody().string());
-                                Toast.makeText(context, response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                                if(response.code() == 409){
+                                    Toast.makeText(context, "Ya hay un turno asignado en esos horarios.", Toast.LENGTH_SHORT).show();
+                                }else{
+                                    Toast.makeText(context, response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                                }
                             } catch (IOException e) {
                                 throw new RuntimeException(e);
                             }

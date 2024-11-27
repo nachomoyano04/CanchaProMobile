@@ -124,7 +124,7 @@ public class ApiCliente {
 
         //Cancelar Turno
         @PATCH("turno/cancelar/{idTurno}")
-        Call<String> cancelarTurno(@Header("Authorization") String token, @Path("idTurno") int idTurno, @Query("fechaCancelacion") LocalDateTime fechaCancelacion, @Query("montoReintegro") String montoReintegro);
+        Call<String> cancelarTurno(@Header("Authorization") String token, @Path("idTurno") int idTurno, @Query("montoReintegro") String montoReintegro);
 
         //Obtener horarios de inicio posibles en una fecha y cancha determinadas
         @GET("horarios/horariosinicio/{idCancha}")
@@ -163,7 +163,7 @@ public class ApiCliente {
 
         //Obtener politica de cancelación de turnos
         @GET("turno/cancelar/{idTurno}")
-        Call<ArrayList<String>> getPoliticasDeCancelacion(@Header("Authorization")String token, @Path("idTurno") int idTurno, @Query("fechaCancelacion") LocalDateTime fechaCancelacion);
+        Call<ArrayList<String>> getPoliticasDeCancelacion(@Header("Authorization")String token, @Path("idTurno") int idTurno);
 
         //Obtener porcentaje de calificacion para una cancha
         @GET("cancha/porcentaje/{idCancha}")

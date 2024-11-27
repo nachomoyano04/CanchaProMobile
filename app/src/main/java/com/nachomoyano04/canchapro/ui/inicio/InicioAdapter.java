@@ -63,8 +63,7 @@ public class InicioAdapter extends RecyclerView.Adapter<InicioAdapter.ViewHolder
             @Override
             public void onClick(View view) {
                 ApiCliente.CanchaProService api = ApiCliente.getApiCanchaPro(view.getContext());
-                LocalDateTime fechaCancelacion = LocalDateTime.now();
-                api.getPoliticasDeCancelacion(ApiCliente.getToken(view.getContext()), t.getId(), fechaCancelacion).enqueue(new Callback<ArrayList<String>>() {
+                api.getPoliticasDeCancelacion(ApiCliente.getToken(view.getContext()), t.getId()).enqueue(new Callback<ArrayList<String>>() {
                     @Override
                     public void onResponse(Call<ArrayList<String>> call, Response<ArrayList<String>> response) {
                         if(response.isSuccessful()){
@@ -74,7 +73,7 @@ public class InicioAdapter extends RecyclerView.Adapter<InicioAdapter.ViewHolder
                                     .setPositiveButton("Cancelar turno", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialogInterface, int i) {
-                                            api.cancelarTurno(ApiCliente.getToken(view.getContext()), t.getId(), fechaCancelacion, response.body().get(1)).enqueue(new Callback<String>() {
+                                            api.cancelarTurno(ApiCliente.getToken(view.getContext()), t.getId(), response.body().get(1)).enqueue(new Callback<String>() {
                                                 @Override
                                                 public void onResponse(Call<String> call, Response<String> response) {
                                                     if(response.isSuccessful()){
@@ -149,7 +148,7 @@ public class InicioAdapter extends RecyclerView.Adapter<InicioAdapter.ViewHolder
         holder.btnEditarMisTurnos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //SOLO QUE PUEDA EDITAR SI FALTAN MAS DE TRES HORAS
+                //SOLO QUE PUEDA EDITAR SI FALTAN MAS DE DOS HORAS
                 Context context = holder.itemView.getContext();
                 if(LocalDateTime.now().plusHours(3).isBefore(t.getFechaInicio())){
                     Bundle b = new Bundle();
