@@ -17,6 +17,7 @@ import com.nachomoyano04.canchapro.request.ApiCliente;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -65,7 +66,16 @@ public class HistorialTurnosViewModel extends AndroidViewModel {
                         mListaMisTurnos.postValue(new ArrayList<>());
                         mMensaje.setValue(true);
                     }else{
-                        mListaMisTurnos.postValue(response.body());
+                        ArrayList<Turno> turnoss = response.body();
+                        if(turnoss.get(0).getEstado()==2){
+                            turnoss.sort(new Comparator<Turno>() {
+                                @Override
+                                public int compare(Turno turno, Turno t1) {
+                                    return t1.getFechaInicio().compareTo(turno.getFechaInicio());
+                                }
+                            });
+                        }
+                        mListaMisTurnos.postValue(turnoss);
                         mMensaje.setValue(false);
                     }
                 }else{
