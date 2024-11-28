@@ -6,6 +6,7 @@ import com.google.gson.annotations.JsonAdapter;
 import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Turno implements Serializable {
     private int id;
@@ -177,7 +178,6 @@ public class Turno implements Serializable {
         @Override
         public void write(com.google.gson.stream.JsonWriter out, LocalDateTime value) throws IOException {
             out.value(value.toString());
-
         }
 
         @Override

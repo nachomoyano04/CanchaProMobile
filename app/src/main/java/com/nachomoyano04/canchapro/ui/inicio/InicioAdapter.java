@@ -25,6 +25,7 @@ import com.nachomoyano04.canchapro.request.ApiCliente;
 import java.io.IOException;
 import java.text.NumberFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
@@ -53,7 +54,7 @@ public class InicioAdapter extends RecyclerView.Adapter<InicioAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolderInicio holder, int position) {
         Turno t = turnos.get(position);
-        holder.fecha.setText(t.getFechaInicio().toLocalDate().toString());
+        holder.fecha.setText(t.getFechaInicio().format(ApiCliente.FORMATTER));
         holder.horaInicio.setText(t.getFechaInicio().toLocalTime().toString());
         holder.horaFin.setText(t.getFechaFin().toLocalTime().toString());
         holder.cancha.setText(t.getCancha().getTipo().getNombre());

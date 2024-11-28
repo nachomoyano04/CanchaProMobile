@@ -247,15 +247,19 @@ public class AltaTurnosViewModel extends AndroidViewModel {
 
     public ArrayList<String> getArrayListDeFechas(LocalDate fechaDeHoy) {
         ArrayList<String> fechas = new ArrayList<>();
+        DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("EEEE dd/MM", Locale.forLanguageTag("es"));
         if(fechaDeHoy.equals(LocalDate.now())){
-            fechas.add(DateTimeFormatter.ofPattern("EEEE dd/MM", Locale.forLanguageTag("es")).format(fechaDeHoy));
-            fechas.add(DateTimeFormatter.ofPattern("EEEE dd/MM", Locale.forLanguageTag("es")).format(fechaDeHoy.plusDays(1)));
-            fechas.add(DateTimeFormatter.ofPattern("EEEE dd/MM", Locale.forLanguageTag("es")).format(fechaDeHoy.plusDays(2)));
+            fechas.add(formatoFecha.format(fechaDeHoy));
+            fechas.add(formatoFecha.format(fechaDeHoy.plusDays(1)));
+            fechas.add(formatoFecha.format(fechaDeHoy.plusDays(2)));
+        }else if(fechaDeHoy.equals(LocalDate.now().plusDays(1))){
+            fechas.add(formatoFecha.format(fechaDeHoy));
+            fechas.add(formatoFecha.format(fechaDeHoy.plusDays(1)));
+            fechas.add(formatoFecha.format(fechaDeHoy.minusDays(1)));
         }else{
-            int diferenciaDeDias = fechaDeHoy.getDayOfYear() - LocalDate.now().getDayOfYear();
-            for(int i = 0; i <= diferenciaDeDias; i++){
-                fechas.add(DateTimeFormatter.ofPattern("EEEE dd/MM", Locale.forLanguageTag("es")).format(fechaDeHoy.minusDays(i)));
-            }
+            fechas.add(formatoFecha.format(fechaDeHoy));
+            fechas.add(formatoFecha.format(fechaDeHoy.minusDays(2)));
+            fechas.add(formatoFecha.format(fechaDeHoy.minusDays(1)));
         }
         return fechas;
     }

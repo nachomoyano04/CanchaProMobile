@@ -53,7 +53,7 @@ public class HistorialTurnoAdapter extends RecyclerView.Adapter<HistorialTurnoAd
         int estado = t.getEstado();
         if(estado == 2){
             ApiCliente.CanchaProService api = ApiCliente.getApiCanchaPro(li.getContext());
-            holder.fecha2.setText(t.getFechaInicio().toLocalDate().toString());
+            holder.fecha2.setText(t.getFechaInicio().format(ApiCliente.FORMATTER));
             holder.horaInicio2.setText(t.getFechaInicio().toLocalTime().toString());
             holder.horaFin2.setText(t.getFechaFin().toLocalTime().toString());
             holder.cancha2.setText(t.getCancha().getTipo().getNombre());
@@ -126,7 +126,7 @@ public class HistorialTurnoAdapter extends RecyclerView.Adapter<HistorialTurnoAd
                 holder.etComentarioTurnoCompletado.setText(t.getComentario());
             }
         }else if(estado == 3){
-            holder.fecha3.setText(t.getFechaInicio().toLocalDate().toString());
+            holder.fecha3.setText(t.getFechaInicio().format(ApiCliente.FORMATTER));
             holder.horaInicio3.setText(t.getFechaInicio().toLocalTime().toString());
             holder.horaFin3.setText(t.getFechaFin().toLocalTime().toString());
             holder.cancha3.setText(t.getCancha().getTipo().getNombre());

@@ -77,6 +77,7 @@ public class EditarAvatarFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 vm.guardar();
+                Navigation.findNavController(view).navigate(R.id.nav_perfilFragment);
             }
         });
         vm.setearImagen(u.getAvatar());

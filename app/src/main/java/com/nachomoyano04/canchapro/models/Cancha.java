@@ -9,17 +9,19 @@ public class Cancha implements Serializable {
     private String imagen;
     private Double precioPorHora;
     private String descripcion;
+    private double porcentajeCalificacion;
     private int estado;
 
     public Cancha() {}
 
-    public Cancha(int id, int tipoId, Tipo tipo, String imagen, Double precioPorHora, String descripcion, int estado) {
+    public Cancha(int id, int tipoId, Tipo tipo, String imagen, Double precioPorHora, String descripcion, double porcentajeCalificacion, int estado) {
         this.id = id;
         this.tipoId = tipoId;
         this.tipo = tipo;
         this.imagen = imagen;
         this.precioPorHora = precioPorHora;
         this.descripcion = descripcion;
+        this.porcentajeCalificacion = porcentajeCalificacion;
         this.estado = estado;
     }
 
@@ -71,6 +73,14 @@ public class Cancha implements Serializable {
         this.descripcion = descripcion;
     }
 
+    public double getPorcentajeCalificacion() {
+        return porcentajeCalificacion;
+    }
+
+    public void setPorcentajeCalificacion(double porcentajeCalificacion) {
+        this.porcentajeCalificacion = porcentajeCalificacion;
+    }
+
     public int getEstado() {
         return estado;
     }
@@ -82,12 +92,13 @@ public class Cancha implements Serializable {
     @Override
     public String toString() {
         return "Cancha{" +
-                "id=" + id +
+                "descripcion='" + descripcion + '\'' +
+                ", id=" + id +
                 ", tipoId=" + tipoId +
                 ", tipo=" + tipo +
                 ", imagen='" + imagen + '\'' +
                 ", precioPorHora=" + precioPorHora +
-                ", descripcion='" + descripcion + '\'' +
+                ", porcentajeCalificacion=" + porcentajeCalificacion +
                 ", estado=" + estado +
                 '}';
     }
