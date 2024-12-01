@@ -82,6 +82,7 @@ public class HistorialTurnoAdapter extends RecyclerView.Adapter<HistorialTurnoAd
                                             try {
                                                 Toast.makeText(li.getContext(), response.errorBody().string(), Toast.LENGTH_SHORT).show();
                                                 Log.d("ErrorComnetsario", response.errorBody().string());
+                                                Log.d("ErrorComnetsario", response.message());
                                             } catch (IOException e) {
                                                 throw new RuntimeException(e);
                                             }
@@ -119,12 +120,11 @@ public class HistorialTurnoAdapter extends RecyclerView.Adapter<HistorialTurnoAd
                 }
             });
             if(t.getComentario() == null){
-                holder.ratingCardTurnoCompletado.setRating(0);
                 holder.etComentarioTurnoCompletado.setText("");
             }else{
-                holder.ratingCardTurnoCompletado.setRating(t.getCalificacion());
                 holder.etComentarioTurnoCompletado.setText(t.getComentario());
             }
+            holder.ratingCardTurnoCompletado.setRating(t.getCalificacion());
         }else if(estado == 3){
             holder.fecha3.setText(t.getFechaInicio().format(ApiCliente.FORMATTER));
             holder.horaInicio3.setText(t.getFechaInicio().toLocalTime().toString());

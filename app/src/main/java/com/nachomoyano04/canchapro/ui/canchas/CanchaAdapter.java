@@ -61,28 +61,8 @@ public class CanchaAdapter extends RecyclerView.Adapter<CanchaAdapter.CanchaView
             NumberFormat moneda = NumberFormat.getCurrencyInstance();
             holder.precio.setText(moneda.format(c.getPrecioPorHora()));
             holder.descripcion.setText(c.getDescripcion());
-            api.getPorcentajeCalificacionCancha(ApiCliente.getToken(contexto), c.getId()).enqueue(new Callback<String>() {
-                @Override
-                public void onResponse(Call<String> call, Response<String> response) {
-                    if(response.isSuccessful()){
-                        holder.porcentaje.setText(response.body());
-                        holder.porcentaje.setCompoundDrawablesWithIntrinsicBounds(R.drawable.star, 0, 0,0);
-                    }else{
-                        try {
-                            Toast.makeText(contexto, "Error en la respuesta", Toast.LENGTH_SHORT).show();
-                            Log.d("geugb", response.errorBody().string());
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<String> call, Throwable throwable) {
-                    Toast.makeText(contexto, "error en el servidor", Toast.LENGTH_SHORT).show();
-                    Log.d("hugea", throwable.getMessage());
-                }
-            });
+            holder.porcentaje.setText(c.getPorcentajeCalificacion()+"");
+            holder.porcentaje.setCompoundDrawablesWithIntrinsicBounds(R.drawable.star, 0, 0,0);
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
