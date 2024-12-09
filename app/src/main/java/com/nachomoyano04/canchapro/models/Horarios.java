@@ -10,17 +10,21 @@ import java.time.LocalTime;
 public class Horarios {
 
     private int id;
+    private Cancha cancha;
+    private int canchaId;
     @JsonAdapter(LocalTimeAdapter.class)
     private LocalTime horaInicio;
     @JsonAdapter(LocalTimeAdapter.class)
     private LocalTime horaFin;
-    private boolean despuesDe12;
+    private String diaSemanal;
 
-    public Horarios(int id, LocalTime horaInicio, LocalTime horaFin, boolean despuesDe12) {
+    public Horarios(int id, Cancha cancha, int canchaId, LocalTime horaInicio, LocalTime horaFin, String diaSemanal) {
         this.id = id;
+        this.cancha = cancha;
+        this.canchaId = canchaId;
         this.horaInicio = horaInicio;
         this.horaFin = horaFin;
-        this.despuesDe12 = despuesDe12;
+        this.diaSemanal = diaSemanal;
     }
 
     public int getId() {
@@ -47,21 +51,39 @@ public class Horarios {
         this.horaFin = horaFin;
     }
 
-    public boolean isDespuesDe12() {
-        return despuesDe12;
+    public Cancha getCancha() {
+        return cancha;
     }
 
-    public void setDespuesDe12(boolean despuesDe12) {
-        this.despuesDe12 = despuesDe12;
+    public void setCancha(Cancha cancha) {
+        this.cancha = cancha;
+    }
+
+    public int getCanchaId() {
+        return canchaId;
+    }
+
+    public void setCanchaId(int canchaId) {
+        this.canchaId = canchaId;
+    }
+
+    public String getDiaSemanal() {
+        return diaSemanal;
+    }
+
+    public void setDiaSemanal(String diaSemanal) {
+        this.diaSemanal = diaSemanal;
     }
 
     @Override
     public String toString() {
         return "Horarios{" +
                 "id=" + id +
+                ", cancha=" + cancha +
+                ", canchaId=" + canchaId +
                 ", horaInicio=" + horaInicio +
                 ", horaFin=" + horaFin +
-                ", despuesDe12=" + despuesDe12 +
+                ", diaSemanal='" + diaSemanal + '\'' +
                 '}';
     }
 
