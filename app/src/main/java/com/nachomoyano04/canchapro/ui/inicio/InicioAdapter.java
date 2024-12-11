@@ -161,6 +161,14 @@ public class InicioAdapter extends RecyclerView.Adapter<InicioAdapter.ViewHolder
                 }
             }
         });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle b = new Bundle();
+                b.putSerializable("cancha", t.getCancha());
+                Navigation.findNavController(view).navigate(R.id.detalleCanchaFragment, b);
+            }
+        });
     }
 
     @Override

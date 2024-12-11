@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_nav_canchas_to_listadoTurnosFragment"
             app:destination="@id/listadoTurnosFragment" />
+        <action
+            android:id="@+id/action_nav_canchas_to_detalleCanchaFragment"
+            app:destination="@id/detalleCanchaFragment" />
     </fragment>
 
     <fragment
@@ -65,6 +68,9 @@
         <action
             android:id="@+id/action_nav_inicio_to_nav_alta_update_turno"
             app:destination="@id/nav_alta_update_turno" />
+        <action
+            android:id="@+id/action_nav_inicio_to_detalleCanchaFragment"
+            app:destination="@id/detalleCanchaFragment" />
     </fragment>
     <fragment
         android:id="@+id/nav_alta_update_turno"
@@ -83,6 +89,18 @@
         <action
             android:id="@+id/action_historialTurnosFragment_to_nav_perfilFragment"
             app:destination="@id/nav_perfilFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detalleCanchaFragment"
+        android:name="com.nachomoyano04.canchapro.ui.canchas.DetalleCanchaFragment"
+        android:label="Detalles de la cancha"
+        tools:layout="@layout/fragment_detalle_cancha">
+        <action
+            android:id="@+id/action_detalleCanchaFragment_to_nav_canchas"
+            app:destination="@id/nav_canchas" />
+        <action
+            android:id="@+id/action_detalleCanchaFragment_to_nav_inicio"
+            app:destination="@id/nav_inicio" />
     </fragment>
 
 </navigation>
