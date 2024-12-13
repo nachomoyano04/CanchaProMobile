@@ -108,8 +108,8 @@ public class ApiCliente {
         Call<String> cambiarPassword(@Header("Authorization") String token, @Field("passwordActual") String passwordActual, @Field("passwordNueva") String passwordNueva);
 
         //Obtener todas las canchas disponibles
-        @GET("cancha")
-        Call<ArrayList<Cancha>> getCanchas(@Header("Authorization") String token);
+        @GET("cancha/{estado}")
+        Call<ArrayList<Cancha>> getCanchas(@Header("Authorization") String token, @Path("estado") int estado);
 
         //obtenemos todos los turnos disponibles para x cancha x dia
         @GET("turno/dia/{idCancha}/{fecha}")

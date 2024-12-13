@@ -39,7 +39,7 @@ public class ListadoViewModel extends AndroidViewModel {
 
     public void llenarLista(){
         ApiCliente.CanchaProService api = ApiCliente.getApiCanchaPro(context);
-        api.getCanchas(ApiCliente.getToken(context)).enqueue(new Callback<ArrayList<Cancha>>() {
+        api.getCanchas(ApiCliente.getToken(context),1).enqueue(new Callback<ArrayList<Cancha>>() {
             @Override
             public void onResponse(Call<ArrayList<Cancha>> call, Response<ArrayList<Cancha>> response) {
                 if(response.isSuccessful()){
