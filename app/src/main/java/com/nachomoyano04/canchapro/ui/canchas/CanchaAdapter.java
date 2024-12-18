@@ -50,14 +50,17 @@ public class CanchaAdapter extends RecyclerView.Adapter<CanchaAdapter.CanchaView
             Context contexto = holder.itemView.getContext();
             ApiCliente.CanchaProService api = ApiCliente.getApiCanchaPro(contexto);
             Cancha c = listaCanchas.get(position);
-            holder.titulo.setText(c.getTipo().getNombre());
+//            holder.titulo.setText(c.getTipo().getNombre());
+            holder.titulo.setText(c.getNombre());
             Glide.with(holder.itemView)
                     .load(ApiCliente.URLIMAGENCANCHA+c.getImagen())
                     .placeholder(R.drawable.ic_launcher_background)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(holder.imagen);
-            holder.tipoPiso.setText(c.getTipo().getTipoDePiso());
-            holder.capacidad.setText(c.getTipo().getCapacidadTotal()+"");
+//            holder.tipoPiso.setText(c.getTipo().getTipoDePiso());
+//            holder.capacidad.setText(c.getTipo().getCapacidadTotal()+"");
+            holder.tipoPiso.setText(c.getTipoDePiso());
+            holder.capacidad.setText(c.getCapacidadTotal()+"");
             NumberFormat moneda = NumberFormat.getCurrencyInstance();
             holder.precio.setText(moneda.format(c.getPrecioPorHora()));
             holder.descripcion.setText(c.getDescripcion());

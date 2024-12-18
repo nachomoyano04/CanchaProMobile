@@ -63,7 +63,8 @@ public class AltaTurnosFragment extends Fragment {
         vm.getMTurno().observe(getViewLifecycleOwner(), new Observer<Turno>() {
             @Override
             public void onChanged(Turno t) {
-                binding.tvCanchaAltaTurnos.setText(t.getCancha().getTipo().getNombre());
+//                binding.tvCanchaAltaTurnos.setText(t.getCancha().getTipo().getNombre());
+                binding.tvCanchaAltaTurnos.setText(t.getCancha().getNombre());
                 LocalDate fechaDeHoy = t.getFechaInicio().toLocalDate();
                 ArrayList<String> fechas = vm.getArrayListDeFechas(fechaDeHoy);
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.spinner_item, fechas);

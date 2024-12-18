@@ -46,6 +46,8 @@ public class ListadoViewModel extends AndroidViewModel {
                     ArrayList<Cancha> canchas = response.body();
                     if(!canchas.isEmpty()){
                         mListaCanchas.postValue(response.body());
+                    }else{
+                        mListaCanchas.postValue(new ArrayList<>());
                     }
                 }else{
                     if(response.code() != 401){

@@ -57,7 +57,8 @@ public class InicioAdapter extends RecyclerView.Adapter<InicioAdapter.ViewHolder
         holder.fecha.setText(t.getFechaInicio().format(ApiCliente.FORMATTER));
         holder.horaInicio.setText(t.getFechaInicio().toLocalTime().toString());
         holder.horaFin.setText(t.getFechaFin().toLocalTime().toString());
-        holder.cancha.setText(t.getCancha().getTipo().getNombre());
+//        holder.cancha.setText(t.getCancha().getTipo().getNombre());
+        holder.cancha.setText(t.getCancha().getNombre());
         NumberFormat moneda = NumberFormat.getCurrencyInstance();
         holder.precio.setText(moneda.format(t.getPago().getMontoTotal()));
         holder.btnCancelar.setOnClickListener(new View.OnClickListener() {

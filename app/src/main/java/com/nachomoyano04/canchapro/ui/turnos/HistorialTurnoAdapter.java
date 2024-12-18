@@ -56,7 +56,8 @@ public class HistorialTurnoAdapter extends RecyclerView.Adapter<HistorialTurnoAd
             holder.fecha2.setText(t.getFechaInicio().format(ApiCliente.FORMATTER));
             holder.horaInicio2.setText(t.getFechaInicio().toLocalTime().toString());
             holder.horaFin2.setText(t.getFechaFin().toLocalTime().toString());
-            holder.cancha2.setText(t.getCancha().getTipo().getNombre());
+//            holder.cancha2.setText(t.getCancha().getTipo().getNombre());
+            holder.cancha2.setText(t.getCancha().getNombre());
             NumberFormat moneda = NumberFormat.getCurrencyInstance();
             holder.precio2.setText(moneda.format(t.getPago().getMontoTotal()));
             holder.btnEditarYGuardarComentario.setOnClickListener(new View.OnClickListener() {
@@ -129,7 +130,8 @@ public class HistorialTurnoAdapter extends RecyclerView.Adapter<HistorialTurnoAd
             holder.fecha3.setText(t.getFechaInicio().format(ApiCliente.FORMATTER));
             holder.horaInicio3.setText(t.getFechaInicio().toLocalTime().toString());
             holder.horaFin3.setText(t.getFechaFin().toLocalTime().toString());
-            holder.cancha3.setText(t.getCancha().getTipo().getNombre());
+//            holder.cancha3.setText(t.getCancha().getTipo().getNombre());
+            holder.cancha3.setText(t.getCancha().getNombre());
             NumberFormat moneda = NumberFormat.getCurrencyInstance();
             holder.precio3.setText(moneda.format(t.getPago().getMontoTotal()));
             if(t.getPago().getMontoReintegroTurnoCancelado() >= 0){

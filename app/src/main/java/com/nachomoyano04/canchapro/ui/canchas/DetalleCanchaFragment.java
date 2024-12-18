@@ -24,15 +24,18 @@ public class DetalleCanchaFragment extends Fragment {
         Bundle b = getArguments();
         Cancha cancha = (Cancha) b.getSerializable("cancha");
         double porcentaje = cancha.getPorcentajeCalificacion();
-        binding.tvNombreDetalleCancha.setText(cancha.getTipo().getNombre());
+//        binding.tvNombreDetalleCancha.setText(cancha.getTipo().getNombre());
+        binding.tvNombreDetalleCancha.setText(cancha.getNombre());
         Glide.with(getContext())
                 .load(ApiCliente.URLIMAGENCANCHA+cancha.getImagen())
                 .placeholder(R.drawable.ic_launcher_background)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(binding.imageView);
         binding.tvPrecioPorHoraDetalleCancha.setText("$"+cancha.getPrecioPorHora());
-        binding.tvCapacidadDetalleCancha.setText(cancha.getTipo().getCapacidadTotal()+"");
-        binding.tvTipoDePisoDetalleCancha.setText(cancha.getTipo().getTipoDePiso());
+//        binding.tvCapacidadDetalleCancha.setText(cancha.getTipo().getCapacidadTotal()+"");
+//        binding.tvTipoDePisoDetalleCancha.setText(cancha.getTipo().getTipoDePiso());
+        binding.tvCapacidadDetalleCancha.setText(cancha.getCapacidadTotal()+"");
+        binding.tvTipoDePisoDetalleCancha.setText(cancha.getTipoDePiso());
         binding.tvPorcentajeCalificacionDetalleCancha.setText(porcentaje+"");
         binding.tvPorcentajeCalificacionDetalleCancha.setCompoundDrawablesWithIntrinsicBounds(R.drawable.star, 0, 0,0);
         binding.descripcionDetallesCancha.setText(cancha.getDescripcion());
