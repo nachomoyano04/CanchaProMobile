@@ -7,6 +7,7 @@ public class Usuario implements Serializable {
     private String dni;
     private String nombre;
     private String apellido;
+    private String telefono;
     private String correo;
     private String password;
     private String repetirPassword;
@@ -15,10 +16,11 @@ public class Usuario implements Serializable {
 
     public Usuario(){}
 
-    public Usuario(String dni, String nombre, String apellido, String correo, String password, String repetirPassword) {
+    public Usuario(String dni, String nombre, String apellido, String telefono, String correo, String password, String repetirPassword) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellido = apellido;
+        this.telefono = telefono;
         this.correo = correo;
         this.password = password;
         this.repetirPassword = repetirPassword;
@@ -54,6 +56,14 @@ public class Usuario implements Serializable {
 
     public void setApellido(String apellido) {
         this.apellido = apellido;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 
     public String getCorreo() {

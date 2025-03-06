@@ -32,9 +32,10 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public class ApiCliente {
-    public static final String URL_BASE = "http://192.168.100.10:5021/api/";
-    public static final String URLIMAGENCANCHA = "http://192.168.100.10:5021/img/cancha/";
-    public static final String URLIMAGENUSUARIO = "http://192.168.100.10:5021/img/usuario/";
+    private static final String IPV4 = "192.168.29.1";
+    public static final String URL_BASE = "http://"+IPV4+":5021/api/";
+    public static final String URLIMAGENCANCHA = "http://"+IPV4+":5021/img/cancha/";
+    public static final String URLIMAGENUSUARIO = "http://"+IPV4+":5021/img/usuario/";
     public static DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     public static SharedPreferences sp;
 

@@ -30,11 +30,12 @@ public class RegistrarActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String dni = binding.etDniRegistrarUsuario.getText().toString();
                 String nombre = binding.etNombreRegistrarUsuario.getText().toString();
+                String telefono = binding.etTelefonoRegistrarUsuario.getText().toString();
                 String apellido = binding.etApellidoRegistrarUsuario.getText().toString();
                 String correo = binding.etCorreoRegistrarPassword.getText().toString();
                 String password = binding.etPasswordRegistrarUsuario.getText().toString();
                 String repetirPassword = binding.etRepetirPasswordRegistrarUsuario.getText().toString();
-                vm.guardarRegistroUsuario(new Usuario(dni, nombre, apellido, correo, password, repetirPassword));
+                vm.guardarRegistroUsuario(new Usuario(dni, nombre, apellido, telefono, correo, password, repetirPassword));
             }
         });
     }

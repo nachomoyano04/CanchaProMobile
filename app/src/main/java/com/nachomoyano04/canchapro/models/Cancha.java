@@ -4,8 +4,6 @@ import java.io.Serializable;
 
 public class Cancha implements Serializable {
     private int id;
-//    private int tipoId;
-//    private Tipo tipo;
     private String nombre;
     private int capacidadTotal;
     private String tipoDePiso;
@@ -29,16 +27,6 @@ public class Cancha implements Serializable {
         this.estado = estado;
     }
 
-    //    public Cancha(int id, int tipoId, Tipo tipo, String imagen, Double precioPorHora, String descripcion, double porcentajeCalificacion, int estado) {
-//        this.id = id;
-//        this.tipoId = tipoId;
-//        this.tipo = tipo;
-//        this.imagen = imagen;
-//        this.precioPorHora = precioPorHora;
-//        this.descripcion = descripcion;
-//        this.porcentajeCalificacion = porcentajeCalificacion;
-//        this.estado = estado;
-//    }
 
     public int getId() {
         return id;
@@ -47,22 +35,6 @@ public class Cancha implements Serializable {
     public void setId(int id) {
         this.id = id;
     }
-
-//    public int getTipoId() {
-//        return tipoId;
-//    }
-//
-//    public void setTipoId(int tipoId) {
-//        this.tipoId = tipoId;
-//    }
-//
-//    public Tipo getTipo() {
-//        return tipo;
-//    }
-//
-//    public void setTipo(Tipo tipo) {
-//        this.tipo = tipo;
-//    }
 
     public String getImagen() {
         return imagen;
@@ -127,20 +99,6 @@ public class Cancha implements Serializable {
     public void setEstado(int estado) {
         this.estado = estado;
     }
-
-//    @Override
-//    public String toString() {
-//        return "Cancha{" +
-//                "descripcion='" + descripcion + '\'' +
-//                ", id=" + id +
-//                ", tipoId=" + tipoId +
-//                ", tipo=" + tipo +
-//                ", imagen='" + imagen + '\'' +
-//                ", precioPorHora=" + precioPorHora +
-//                ", porcentajeCalificacion=" + porcentajeCalificacion +
-//                ", estado=" + estado +
-//                '}';
-//    }
 
     @Override
     public String toString() {
